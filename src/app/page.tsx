@@ -1,7 +1,10 @@
-import Image from "next/image";
+
 
 export default function Home() {
   return (
-    <h1>Teste</h1>
+   
+    <div className="bg-violet-eggplant-400 h-screen" >
+     <h1>Teste</h1>  
+    </div>
     );
 }

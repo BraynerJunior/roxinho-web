@@ -1,16 +1,39 @@
 @import "tailwindcss";
 
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --violet-eggplant-50: #f6eefb;
+  --violet-eggplant-100: #e8d4f6;
+  --violet-eggplant-200: #d5abee;
+  --violet-eggplant-300: #c586e7;
+  --violet-eggplant-400: #b75fdf;
+  --violet-eggplant-500: #9f43c6;
+  --violet-eggplant-600: #8939ac;
+  --violet-eggplant-700: #6d2b88;
+  --violet-eggplant-800: #4d1d62;
+  --violet-eggplant-900: #2e0e3b;
+  --violet-eggplant-950: #1d0727;
 }
+
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+   --color-violet-eggplant-50: var(--violet-eggplant-50);
+  --color-violet-eggplant-100: var(--violet-eggplant-100);
+  --color-violet-eggplant-200: var(--violet-eggplant-200);
+  --color-violet-eggplant-300: var(--violet-eggplant-300);
+  --color-violet-eggplant-400: var(--violet-eggplant-400);
+  --color-violet-eggplant-500:var(--violet-eggplant-500);
+  --color-violet-eggplant-600: var(--violet-eggplant-600);
+  --color-violet-eggplant-700: var(--violet-eggplant-700);
+  --color-violet-eggplant-800: var(--violet-eggplant-800);
+  --color-violet-eggplant-900: var(--violet-eggplant-900);
+  --color-violet-eggplant-950: var(--violet-eggplant-950);
 }
+
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -24,3 +47,5 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
