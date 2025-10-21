@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/card";
 import Image from "next/image";
 import { IoNewspaperSharp } from "react-icons/io5";
-import { IoPersonSharp } from "react-icons/io5";
 import { IoPersonOutline } from "react-icons/io5";
 
 export default function Home() {
@@ -76,7 +75,7 @@ export default function Home() {
             </CardHeader>
           </Card>
 
-          <Card className="flex-grow w-full justify-start lg:justify-center bg-violet-eggplant-600 hover:bg-violet-eggplant-500 duration-300 ease-out shadow-2xl hover:shadow-none hover:translate-y-3 text-white items-center lg:items-start ">
+          <Card className="flex-grow w-full justify-start lg:justify-center bg-violet-eggplant-600 hover:bg-violet-eggplant-500 duration-300 ease-out shadow-2xl hover:shadow-none hover:translate-y-3  text-white items-center lg:items-start ">
             <CardContent className=" mt-20 pl-11 lg:pl-0">
               <IoPersonOutline className="w-[12rem] h-full p-0 m-0" />
             </CardContent>
