@@ -54,6 +54,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-poppins: var(--font-poppins);
    --color-violet-eggplant-50: var(--violet-eggplant-50);
   --color-violet-eggplant-100: var(--violet-eggplant-100);
   --color-violet-eggplant-200: var(--violet-eggplant-200);
