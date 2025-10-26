@@ -1,6 +1,7 @@
 
 import CardGaming from "@/components/CardGaming";
 import CardNews from "@/components/CardNews";
+import CardOurResults from "@/components/CardOurResults";
 import {
   Card,
   CardContent,
@@ -9,15 +10,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
-import { IoNewspaperSharp } from "react-icons/io5";
 import { IoPersonOutline } from "react-icons/io5";
 
 export default function Home() {
   return (
     <div className="bg-violet-eggplant-300 min-h-[100svh] w-[100svw] justify-center flex ">
-      <div className=" grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 justify-items-center w-[90%] my-8 gap-y-3 gap-x-4">
-        <div className="flex flex-col items-center justify-between space-y-5 w-full">
-          <Card className="relative h-1/4 w-full md:mt-15 min-h-40 duration-300 ease-out shadow-2xl hover:shadow-none hover:translate-y-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 justify-items-center w-[90%] my-14 gap-y-3 gap-x-4">
+        <div className="md:h-[90%] flex flex-col items-center justify-between space-y-5 w-full">
+          <Card className="relative w-full md:mt-15 min-h-40 duration-300 ease-out shadow-2xl hover:shadow-none hover:translate-y-3">
             <CardHeader className="absolute left-1/3 text-center top-1/3 md:-translate-x-2/3 ">
               <CardTitle className="text-2xl">Roxinho.Web</CardTitle>
               <CardDescription className="text-xl">Quem somos</CardDescription>
@@ -34,14 +34,14 @@ export default function Home() {
           <CardNews />
         </div>
 
-        <div className="h-full flex flex-col space-y-5 w-full items-center justify-between">
-          <Card className="h-full w-full">
+        <div className="md:h-[90%] flex flex-col space-y-5 w-full items-center justify-between">
+          <Card className="flex-auto w-full">
             <CardHeader>
               <CardTitle>Campanhas News</CardTitle>
               <CardDescription></CardDescription>
             </CardHeader>
           </Card>
-          <Card className="h-full w-full">
+          <Card className="flex-auto w-full">
             <CardHeader>
               <CardTitle>Corrida Espacial</CardTitle>
               <CardDescription>Saiba mais</CardDescription>
@@ -49,15 +49,10 @@ export default function Home() {
           </Card>
         </div>
 
-        <div className="h-full flex flex-col space-y-5 w-full items-center justify-between">
-          <Card className="h-full w-full">
-            <CardHeader>
-              <CardTitle>Nossos Resultados</CardTitle>
-              <CardDescription>Veja quem são os melhores</CardDescription>
-            </CardHeader>
-          </Card>
+        <div className="md:h-[90%] flex flex-col space-y-5 w-full items-center justify-between">
+          <CardOurResults />
 
-          <Card className="h-full w-full">
+          <Card className="flex-auto w-full">
             <CardHeader>
               <CardTitle>Verbatins Month</CardTitle>
               <CardDescription></CardDescription>
@@ -65,10 +60,10 @@ export default function Home() {
           </Card>
         </div>
 
-        <div className="h-full flex flex-col space-y-5 w-full items-center justify-between">
+        <div className="md:h-[90%] flex flex-col space-y-5 w-full items-center justify-between">
           <CardGaming />
 
-          <Card className="group relative flex-grow w-full justify-end bg-violet-eggplant-600 hover:bg-violet-eggplant-500 duration-300 ease-out shadow-2xl hover:shadow-none hover:translate-y-3 text-white items-center lg:items-start overflow-hidden min-h-80 ">
+          <Card className="group relative flex-auto w-full justify-end bg-violet-eggplant-600 hover:bg-violet-eggplant-500 duration-300 ease-out shadow-2xl hover:shadow-none hover:translate-y-3 text-white items-center lg:items-start overflow-hidden">
             <div className="absolute inset-0 opacity-0 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-500 brightness-70 delay-200">
               <Image
                 src="/images/pessoasAleatorio.png"
