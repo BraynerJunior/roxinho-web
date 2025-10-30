@@ -10,7 +10,7 @@ export default function CardGaming() {
 
   return (
     <Card
-      className="relative w-full sm:min-h-40  duration-300 ease-out shadow-2xl hover:shadow-none hover:translate-y-3 bg-linear-to-r from-indigo-800 to-blue-500 text-white"
+      className="relative w-full sm:min-h-40  duration-300 ease-out shadow-2xl hover:shadow-none hover:translate-y-3 bg-linear-to-tr from-violet-eggplant-400 to-violet-eggplant-200 hover:bg-linear-to-tr hover:from-violet-eggplant-200 hover:to-violet-eggplant-400 text-white transition"
       onMouseEnter={() => lottieRef.current?.play()}
       onMouseLeave={() => lottieRef.current?.stop()}
     >
