@@ -6,15 +6,6 @@ import CardNews from "@/components/CardNews";
 import CardOurResults from "@/components/CardOurResults";
 import CardRoxinho from "@/components/CardRoxinho";
 import CardVerbatins from "@/components/CardVerbatins";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import Image from "next/image";
-import { IoPersonOutline } from "react-icons/io5";
 
 export default function Home() {
   return (
