@@ -1,7 +1,7 @@
 "use client"
 
 import Lottie from "lottie-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
+import { Card, CardContent, CardDescription, CardTitle } from "../ui/card";
 import campanhasAnimations from "@/animations/campanhas.json"
 export default function CardCampanhaNews() {
     return (
