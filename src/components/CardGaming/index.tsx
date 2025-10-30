@@ -10,7 +10,7 @@ export default function CardGaming() {
 
   return (
     <Card
-      className="relative w-full sm:min-h-40  duration-300 ease-out shadow-2xl hover:shadow-none hover:translate-y-3 bg-linear-to-tr from-violet-eggplant-400 to-violet-eggplant-200 hover:bg-linear-to-tr hover:from-violet-eggplant-200 hover:to-violet-eggplant-400 text-white transition"
+      className="cursor-pointer relative w-full sm:min-h-40  duration-300 ease-out shadow-2xl hover:shadow-none hover:translate-y-3 bg-linear-to-tr from-violet-eggplant-400 to-violet-eggplant-200 hover:bg-linear-to-tr hover:from-violet-eggplant-200 hover:to-violet-eggplant-400 text-white transition"
       onMouseEnter={() => lottieRef.current?.play()}
       onMouseLeave={() => lottieRef.current?.stop()}
     >
@@ -24,7 +24,7 @@ export default function CardGaming() {
         />
       </div>
       <CardHeader>
-        <CardTitle className="text-3xl">Jogos</CardTitle>   
+        <CardTitle className="text-3xl sm:text-2xl lg:text-3xl">Jogos</CardTitle>   
         <CardDescription className="text-white text-2xl">
           Caça ao tesouro      
         </CardDescription>
