@@ -67,11 +67,12 @@ const items = [
 ];
 
 export function AppSidebar() {
+  const style = "bg-violet-eggplant-100 "
   return (
-    <Sidebar>
-      <SidebarHeader />
-      <SidebarContent>
-        <SidebarGroup>
+    <div >
+    <Sidebar variant="floating" className="w-20.5 h-170">
+      <SidebarContent className={`${style} rounded-sm `} >
+        <SidebarGroup className={`${style} rounded-sm `}>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
@@ -80,7 +81,7 @@ export function AppSidebar() {
                     <TooltipTrigger asChild>
                       <SidebarMenuButton
                         asChild
-                        className="[&>svg]:size-8 my-2"
+                        className="[&>svg]:size-8 size-12 my-2 "
                       >
                         <Link
                           href={item.url}
@@ -102,7 +103,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter />
     </Sidebar>
+    </div>
   );
 }
