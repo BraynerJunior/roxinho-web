@@ -4,6 +4,9 @@ import { BsController } from "react-icons/bs";
 import { BiMedal } from "react-icons/bi";
 import { RiMegaphoneLine } from "react-icons/ri";
 import { GoPerson } from "react-icons/go";
+import { HiOutlineUserGroup } from "react-icons/hi2";
+import { ImNewspaper } from "react-icons/im";
+import { RiSpeakLine } from "react-icons/ri";
 
 import {
   Sidebar,
@@ -17,6 +20,8 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import { TooltipArrow } from "@radix-ui/react-tooltip";
 
 const items = [
   {
@@ -26,13 +31,13 @@ const items = [
   },
   {
     title: "Roxinho Web",
-    url: "/roxinho",
-    icon: IoMdPerson,
+    url: "/about-us",
+    icon: HiOutlineUserGroup,
   },
   {
     title: "Roxinho News",
     url: "/roxinho-news",
-    icon: IoMdPerson,
+    icon: ImNewspaper,
   },
   {
     title: "Campanha News",
@@ -47,7 +52,7 @@ const items = [
   {
     title: "Verbatins Month",
     url: "/verbatins-month",
-    icon: IoMdPerson,
+    icon: RiSpeakLine,
   },
   {
     title: "Gaming",
@@ -71,15 +76,26 @@ export function AppSidebar() {
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild className="[&>svg]:size-8 my-2">
-                    <Link
-                      href={item.url}
-                      className="py-6 bg-violet-eggplant-300 hover:bg-violet-eggplant-400"
-                    >
-                      <item.icon className="text-violet-eggplant-800"/>
-                      <span>{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <SidebarMenuButton
+                        asChild
+                        className="[&>svg]:size-8 my-2"
+                      >
+                        <Link
+                          href={item.url}
+                          className="py-6 bg-violet-eggplant-300 hover:bg-violet-eggplant-400"
+                        >
+                          <item.icon className="text-violet-eggplant-800" />
+                        </Link>
+                      </SidebarMenuButton>
+                    </TooltipTrigger>
+                    <TooltipContent className="bg-violet-eggplant-400 rounded-md px-2 fill-violet-eggplant-400">
+                      
+                      {item.title}
+                      <TooltipArrow className="fill z-50 size-2.5 translate-y-[calc(-50%_-_2px)] rotate-45 rounded-[2px] bg-violet-eggplant-400 fill-violet-eggplant-400"/>
+                    </TooltipContent>
+                  </Tooltip>
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
