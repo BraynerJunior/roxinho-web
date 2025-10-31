@@ -2,7 +2,6 @@ import { Home } from "lucide-react";
 import { IoMdPerson } from "react-icons/io";
 import { BsController } from "react-icons/bs";
 import { BiMedal } from "react-icons/bi";
-import { IoPersonOutline } from "react-icons/io5";
 import { RiMegaphoneLine } from "react-icons/ri";
 import { GoPerson } from "react-icons/go";
 
