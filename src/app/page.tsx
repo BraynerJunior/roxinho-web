@@ -7,6 +7,7 @@ import CardOurResults from "@/components/CardOurResults";
 import CardRoxinho from "@/components/CardRoxinho";
 import CardVerbatins from "@/components/CardVerbatins";
 
+// MOVER PARA PRIVATE DEPOIS DE CRIAR LOGIN
 export default function Home() {
   return (
     <main className="bg-[url(/images/backgroundhomee.jpg)] bg-cover bg-center bg-no-repeat min-h-screen">
