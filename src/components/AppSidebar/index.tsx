@@ -1,5 +1,4 @@
 import { Home } from "lucide-react";
-import { IoMdPerson } from "react-icons/io";
 import { BsController } from "react-icons/bs";
 import { BiMedal } from "react-icons/bi";
 import { RiMegaphoneLine } from "react-icons/ri";
@@ -11,10 +10,8 @@ import { RiSpeakLine } from "react-icons/ri";
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
