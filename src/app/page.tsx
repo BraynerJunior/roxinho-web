@@ -1,11 +1,11 @@
-import CardCampanhaNews from "@/components/CardCampanhasNews";
-import CardCorridaEspacial from "@/components/CardCorridaEspacial";
-import CardDeFrenteCom from "@/components/CardFrenteCom";
-import CardGaming from "@/components/CardGaming";
-import CardNews from "@/components/CardNews";
-import CardOurResults from "@/components/CardOurResults";
-import CardRoxinho from "@/components/CardRoxinho";
-import CardVerbatins from "@/components/CardVerbatins";
+import CardCampanhaNews from "@/components/home/CardCampanhasNews";
+import CardCorridaEspacial from "@/components/home/CardCorridaEspacial";
+import CardDeFrenteCom from "@/components/home/CardFrenteCom";
+import CardGaming from "@/components/home/CardGaming";
+import CardNews from "@/components/home/CardNews";
+import CardOurResults from "@/components/home/CardOurResults";
+import CardRoxinho from "@/components/home/CardRoxinho";
+import CardVerbatins from "@/components/home/CardVerbatins";
 
 // MOVER PARA PRIVATE DEPOIS DE CRIAR LOGIN
 export default function Home() {
