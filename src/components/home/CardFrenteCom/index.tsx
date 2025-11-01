@@ -9,6 +9,7 @@ import {
 import { IoPersonOutline } from "react-icons/io5";
 import Link from "next/link";
 
+
 export default function CardDeFrenteCom() {
   return (
       <Link href="defrentecom" className="block w-full h-full">

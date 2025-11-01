@@ -1,23 +1,20 @@
-"use client";
 
-import Lottie from "lottie-react";
+
 import { Card, CardDescription, CardContent, CardTitle } from "../../ui/card";
 import podiumAnimation from "@/animations/podium.json";
 import Link from "next/link";
+import { LottieCard } from "@/components/LottieCard";
 
 export default function CardOurResults() {
+
+  
   return (
     <Link className="block h-full w-full" href="#">
       <Card className="cursor-pointer flex-1 w-full h-full bg-violet-eggplant-100 hover:bg-violet-eggplant-200 duration-300 ease-out shadow-2xl hover:shadow-none hover:translate-y-3">
         <div className="flex flex-col justify-start md:justify-evenly">
-          <div className="bg-violet-eggplant-50 rounded-full mt-20 ml-4 self-center">
-            <Lottie
-              animationData={podiumAnimation}
-              loop={true}
-              autoplay={true}
-              className="w-full h-48"
-            />
-          </div>
+          
+
+          <LottieCard animationData={podiumAnimation} wrapperStyle="bg-violet-eggplant-50 rounded-full mt-20 ml-4 self-center" lottieStyle="w-full h-48" />
           <CardContent className="pl-9 text-center xl:text-start self-center mt-8">
             <CardTitle className="text-3xl sm:text-2xl xl:text-3xl text-center 3xl:text-start">
               Nossos Resultados

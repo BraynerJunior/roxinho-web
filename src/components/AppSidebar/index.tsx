@@ -7,6 +7,8 @@ import { HiOutlineUserGroup } from "react-icons/hi2";
 import { ImNewspaper } from "react-icons/im";
 import { RiSpeakLine } from "react-icons/ri";
 
+
+
 import {
   Sidebar,
   SidebarContent,
@@ -68,14 +70,16 @@ export function AppSidebar() {
 
   return (
     <div className="h-screen flex items-center">{/* centraliza vertical e horizontalmente */}
-      <Sidebar variant="floating" className="fixed left-0 top-1/2 -translate-y-1/2 w-20.5 h-140 flex justify-center items-center">
-        <SidebarContent className={`${style} rounded-sm flex flex-col items-center justify-center`}>
-          <SidebarGroup className={`${style} rounded-sm flex flex-col items-center justify-center`}>
+      <Sidebar variant="floating" className="left-0 top-1/2 -translate-y-1/2 w-20.5 h-160 flex justify-center items-center ">
+        <SidebarContent className={`${style} rounded-sm flex flex-col items-center justify-center shadow-2xl`}>
+          <SidebarGroup className={`${style} rounded-sm flex flex-col items-center justify-center `}>
             <SidebarGroupContent>
               <SidebarMenu>
                 {items.map((item) => (
                   <SidebarMenuItem key={item.title}>
-                    <Tooltip>
+                    <Tooltip delayDuration={0} disableHoverableContent>
+                      
+
                       <TooltipTrigger asChild>
                         <SidebarMenuButton
                           asChild
@@ -83,7 +87,7 @@ export function AppSidebar() {
                         >
                           <Link
                             href={item.url}
-                            className="py-6 bg-violet-eggplant-300 hover:bg-violet-eggplant-400 flex justify-center items-center"
+                            className="py-6 bg-violet-eggplant-300 hover:bg-violet-eggplant-400 flex justify-center items-center "
                           >
                             <item.icon className="text-violet-eggplant-800" />
                           </Link>
