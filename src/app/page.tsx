@@ -6,6 +6,7 @@ import CardNews from "@/components/home/CardNews";
 import CardOurResults from "@/components/home/CardOurResults";
 import CardRoxinho from "@/components/home/CardRoxinho";
 import CardVerbatins from "@/components/home/CardVerbatins";
+export const dynamic = 'force-dynamic';
 
 // MOVER PARA PRIVATE DEPOIS DE CRIAR LOGIN
 export default function Home() {
