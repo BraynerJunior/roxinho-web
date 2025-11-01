@@ -2,7 +2,7 @@
 
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import { useRef } from "react";
-import { Card, CardDescription, CardHeader, CardTitle } from "../ui/card";
+import { Card, CardDescription, CardHeader, CardTitle } from "../../ui/card";
 import gamingAnimation from "@/animations/gaming.json";
 import Link from "next/link";
 

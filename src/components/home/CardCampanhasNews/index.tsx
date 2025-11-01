@@ -1,7 +1,7 @@
 "use client";
 
 import Lottie from "lottie-react";
-import { Card, CardContent, CardTitle } from "../ui/card";
+import { Card, CardContent, CardTitle } from "../../ui/card";
 import campanhasAnimations from "@/animations/campanhas.json";
 import Link from "next/link";
 export default function CardCampanhaNews() {

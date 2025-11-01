@@ -1,7 +1,7 @@
 "use client";
 
 import Lottie from "lottie-react";
-import { Card, CardDescription, CardContent, CardTitle } from "../ui/card";
+import { Card, CardDescription, CardContent, CardTitle } from "../../ui/card";
 import contactAnimation from "@/animations/contact.json";
 import Link from "next/link";
 

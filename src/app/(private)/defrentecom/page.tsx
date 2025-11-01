@@ -1,7 +1,9 @@
 export default function DeFrenteComPage() {
     return(
-        <div  >
-            <h1>ola mundo</h1>
+        <div className="w-screen h-screen bg-red-500">
+            <main>
+            <h1>De frente Com</h1>
+            </main>
         </div>
     )
 }

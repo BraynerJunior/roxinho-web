@@ -5,13 +5,13 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../ui/card";
+} from "../../ui/card";
 import { IoPersonOutline } from "react-icons/io5";
 import Link from "next/link";
 
 export default function CardDeFrenteCom() {
   return (
-      <Link href="/defrentecom" className="block w-full h-full">
+      <Link href="defrentecom" className="block w-full h-full">
     <Card
       className="group relative flex-auto w-full h-full justify-end bg-violet-eggplant-500 hover:bg-violet-eggplant-600 duration-300 ease-out shadow-2xl hover:shadow-none hover:translate-y-3 text-white items-center lg:items-start overflow-hidden"
     >
