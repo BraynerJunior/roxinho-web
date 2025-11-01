@@ -1,0 +1,118 @@
+[
+  {
+    "id": "int-001",
+    "user": {
+      "id": "1",
+      "name": "Sergio Brayner",
+      "role": "Atendente",
+      "birthdate": "20-10-2005",
+      "profilePictureUrl": "https://i.pinimg.com/736x/66/cc/37/66cc3796f046da81c02e6b63486664c7.jpg"
+    },
+    "createdAt": "2025-11-01T09:00:00Z",
+    "messages": [
+      {
+        "id": "msg-001",
+        "fromUser": true,
+        "content": "Olá, estou com dúvida sobre o procedimento X."
+      },
+      {
+        "id": "msg-002",
+        "fromUser": false,
+        "content": "Oi Sergio! Posso te ajudar. Qual é exatamente sua dúvida?"
+      }
+    ]
+  },
+  {
+    "id": "int-002",
+    "user": {
+      "id": "2",
+      "name": "Alberto Santos",
+      "role": "Atendente",
+      "birthdate": "11-03-1998"
+    },
+    "createdAt": "2025-11-01T09:30:00Z",
+    "messages": [
+      {
+        "id": "msg-003",
+        "fromUser": true,
+        "content": "Bom dia, preciso de acesso ao sistema Y."
+      },
+      {
+        "id": "msg-004",
+        "fromUser": false,
+        "content": "Bom dia Alberto, você já enviou o formulário de solicitação?"
+      },
+      {
+        "id": "msg-005",
+        "fromUser": true,
+        "content": "Sim, mas ainda não recebi confirmação."
+      }
+    ]
+  },
+  {
+    "id": "int-003",
+    "user": {
+      "id": "4",
+      "name": "Andréa Lima",
+      "role": "Psicóloga",
+      "birthdate": "28-09-1988"
+    },
+    "createdAt": "2025-11-01T10:00:00Z",
+    "messages": [
+      {
+        "id": "msg-006",
+        "fromUser": true,
+        "content": "Gostaria de revisar o caso do paciente Z."
+      },
+      {
+        "id": "msg-007",
+        "fromUser": false,
+        "content": "Claro, podemos marcar uma reunião para discutir os detalhes."
+      }
+    ]
+  },
+  {
+    "id": "int-004",
+    "user": {
+      "id": "6",
+      "name": "Juliana Torres",
+      "role": "Coordenadora",
+      "birthdate": "03-02-1994"
+    },
+    "createdAt": "2025-11-01T10:30:00Z",
+    "messages": [
+      {
+        "id": "msg-008",
+        "fromUser": true,
+        "content": "Preciso aprovar os relatórios da equipe."
+      },
+      {
+        "id": "msg-009",
+        "fromUser": false,
+        "content": "Juliana, todos os relatórios foram enviados e estão prontos para revisão."
+      }
+    ]
+  },
+  {
+    "id": "int-005",
+    "user": {
+      "id": "8",
+      "name": "Cláudia Rocha",
+      "role": "Psicóloga",
+      "birthdate": "09-06-1985"
+    },
+    "createdAt": "2025-11-01T11:00:00Z",
+    "messages": [
+      {
+        "id": "msg-010",
+        "fromUser": true,
+        "content": "Gostaria de atualizar os registros do paciente Y."
+      },
+      {
+        "id": "msg-011",
+        "fromUser": false,
+        "content": "Perfeito, Cláudia. Posso enviar os formulários atualizados."
+      }
+    ]
+  }
+]
