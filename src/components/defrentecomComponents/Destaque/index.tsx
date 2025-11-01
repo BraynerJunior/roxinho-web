@@ -17,8 +17,9 @@ export default function DestaqueDeFrenteCom() {
       <div
         className={clsx(
           "w-80 h-full",
-          "rounded-xl overflow-hidden border-2",
-          "border-violet-eggplant-700 group"
+          "rounded-xl overflow-hidden ",
+          "border-1 border-violet-eggplant-600",
+          "shadow-violet-eggplant-700/90 shadow-lg group"
         )}
       >
         <Image
