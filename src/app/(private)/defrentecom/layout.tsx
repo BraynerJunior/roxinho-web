@@ -9,15 +9,13 @@ export default function PrivateLayout({
 }>) {
   return (
     <SidebarProvider>
-      <div className="relative flex min-h-screen w-full overflow-hidden">
-        <div className="absolute inset-0 -z-10">{children}</div>
+      <div className="relative flex min-h-screen w-full">
+        <div className="absolute inset-0">{children}</div>
         <div className="flex flex-row gap-2 items-center justify-center">
           <AppSidebar />
-          <div>
-            <CustomTrigger />
+          <div className="z-10">
+            <CustomTrigger/>
           </div>
-        </div>
-        <div className="flex-1">
         </div>
       </div>
     </SidebarProvider>

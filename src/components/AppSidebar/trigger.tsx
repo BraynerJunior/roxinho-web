@@ -8,7 +8,7 @@ export function CustomTrigger() {
 
   return (
     <button className="ml-3 self-center" onClick={toggleSidebar}>
-      <IoIosArrowForward className="w-6 h-6 text-violet-800" />
+      <IoIosArrowForward className="w-6 h-6 text-violet-200" />
     </button>
   );
 }
