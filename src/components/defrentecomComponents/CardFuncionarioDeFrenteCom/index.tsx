@@ -1,7 +1,20 @@
 import Image from "next/image";
 import clsx from "clsx";
+import { formatDistanceToNow } from "@/utils/format-datetime";
 
-export default function CardFuncionario() {
+export interface CardFuncionarioDeFrenteComProps {
+  name: string;
+  role: string;
+  profilePictureUrl: string | undefined;
+  createdAt: string;
+}
+
+export default function CardFuncionarioDeFrenteCom({
+  name,
+  role,
+  profilePictureUrl = "/images/pessoasAleatorio.png",
+  createdAt,
+}: CardFuncionarioDeFrenteComProps) {
   return (
     <div
       className={clsx(
@@ -24,7 +37,7 @@ export default function CardFuncionario() {
         )}
       >
         <Image
-          src="/images/pessoasAleatorio.png"
+          src={profilePictureUrl}
           alt="Foto do funcionário"
           width={300}
           height={300}
@@ -40,8 +53,13 @@ export default function CardFuncionario() {
           "overflow-x-hidden"
         )}
       >
-        <h2 className="font-semibold text-violet-eggplant-900 text-sm">Sergio Brayner</h2>
-        <p className="text-violet-eggplant-900/80 text-sm">Atendente</p>
+        <div>
+          <h2 className="font-semibold text-violet-eggplant-900 text-sm">
+            {name}
+          </h2>
+          <p className="text-violet-eggplant-900/80 text-sm">{role}</p>
+        </div>
+        <p className="text-xs font-light text-right text-violet-eggplant-900">{formatDistanceToNow(createdAt)}</p>
       </div>
     </div>
   );

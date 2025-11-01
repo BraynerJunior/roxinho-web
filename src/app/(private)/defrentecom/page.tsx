@@ -1,8 +1,15 @@
-import CardFuncionario from "@/components/defrentecomComponents/CardFuncionario";
+import CardFuncionarioDeFrenteCom from "@/components/defrentecomComponents/CardFuncionarioDeFrenteCom";
 import DestaqueDeFrenteCom from "@/components/defrentecomComponents/Destaque";
+import { findAllInterviews } from "@/lib/interview/queries";
+
+
 import clsx from "clsx";
 
-export default function DeFrenteComPage() {
+export default async function DeFrenteComPage() {
+  const interviews = await findAllInterviews();
+
+  console.log("Entrevistas dados: ", interviews);
+
   return (
     <div
       className={clsx(
@@ -42,18 +49,17 @@ export default function DeFrenteComPage() {
             )}
             style={{ overscrollBehavior: "contain" }}
           >
-            <CardFuncionario />
-            <CardFuncionario />
-            <CardFuncionario />
-            <CardFuncionario />
-            <CardFuncionario />
-            <CardFuncionario />
-            <CardFuncionario />
-            <CardFuncionario />
-            <CardFuncionario />
-            <CardFuncionario />
-            <CardFuncionario />
-            <CardFuncionario />
+            {interviews.map((interview) => {
+              return (
+                <CardFuncionarioDeFrenteCom
+                  profilePictureUrl={interview.user.profilePictureUrl}
+                  key={interview.user.id}
+                  name={interview.user.name}
+                  role={interview.user.role}
+                  createdAt={interview.createdAt}
+                />
+              );
+            })}
           </div>
         </div>
       </main>
