@@ -40,7 +40,8 @@ export class JsonInterviewRepository implements InterviewRepository {
     const interviews = await this.readFromDisk();
 
     const summaries = interviews.map((interview) => {
-      const { messages, ...summary } = interview;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { messages: _, ...summary } = interview;
       return summary;
     });
 

@@ -1,13 +1,14 @@
-// lib/hooks/useIsMobile.ts (ou onde você o criou)
-import * as React from "react"
+import { useState, useEffect } from "react";
 
-const MOBILE_BREAKPOINT = 768
+const MOBILE_BREAKPOINT = 768;
+const QUERY = `(max-width: ${MOBILE_BREAKPOINT - 1}px)`;
 
 export function useIsMobile() {
-  const [isMobile, setIsMobile] = React.useState<boolean | undefined>(undefined);
 
-  React.useEffect(() => {
-    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mql = window.matchMedia(QUERY);
 
     const onChange = (event: MediaQueryListEvent) => {
       setIsMobile(event.matches);
