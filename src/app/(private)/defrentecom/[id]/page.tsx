@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { findAllInterviews, findALlSummariesInterviews, findInterviewById } from "@/lib/interview/queries";
+import { findALlSummariesInterviews, findInterviewById } from "@/lib/interview/queries";
 import { InterviewModel } from "@/models/interview/interview-model";
 import { MessageContentProps } from "@/components/defrentecomComponents/MessageBar";
 import { DeFrenteComResizable } from "@/components/defrentecomComponents/DeFrenteComResizable";
