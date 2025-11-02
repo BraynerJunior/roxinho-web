@@ -1,5 +1,5 @@
 import { InterviewModel } from "@/models/interview/interview-model";
-import { InterviewRepository } from "./interview-repository";
+import { InterviewRepository, InterviewSummary } from "./interview-repository";
 import { resolve } from "path";
 import { readFile } from "fs/promises";
 import { SIMULATE_WAIT_IN_MS } from "@/lib/constants";
@@ -24,9 +24,6 @@ export class JsonInterviewRepository implements InterviewRepository {
     const jsonContent = await readFile(JSON_USERS_FILE_PATH, "utf-8");
     const parsedJson = JSON.parse(jsonContent);
 
-    // support two shapes:
-    // 1) root is an array: [ { ... }, ... ]
-    // 2) root is an object: { interview: [ { ... }, ... ] }
     let interviews: InterviewModel[] = [];
     if (Array.isArray(parsedJson)) {
       interviews = parsedJson as InterviewModel[];
@@ -37,6 +34,20 @@ export class JsonInterviewRepository implements InterviewRepository {
     return interviews;
   }
 
+  async findALlSummaries(): Promise<InterviewSummary[]> {
+    await this.simulateWait();
+
+    const interviews = await this.readFromDisk();
+
+    const summaries = interviews.map((interview) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { messages: _, ...summary } = interview;
+      return summary;
+    });
+
+    return summaries;
+  }
+
   async findAll(): Promise<InterviewModel[]> {
     await this.simulateWait();
 
@@ -45,10 +56,12 @@ export class JsonInterviewRepository implements InterviewRepository {
   }
 
   async findById(id: string): Promise<InterviewModel> {
-    const interviews = await this.findAll();
+    await this.simulateWait();
+
+    const interviews = await this.readFromDisk();
     const interview = interviews.find((user) => user.id === id);
 
-    if (!interview) throw new Error("Entrevistada não encontrada para ID");
+    if (!interview) throw new Error("Entrevista não encontrada para ID");
 
     return interview;
   }
