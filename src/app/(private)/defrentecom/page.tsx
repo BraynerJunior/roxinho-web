@@ -8,8 +8,6 @@ import clsx from "clsx";
 export default async function DeFrenteComPage() {
   const interviews = await findAllInterviews();
 
-  console.log("Entrevistas dados: ", interviews);
-
   return (
     <div
       className={clsx(

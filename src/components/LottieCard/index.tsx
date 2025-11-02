@@ -29,6 +29,7 @@ export function LottieCard({ animationData, wrapperStyle, lottieStyle }: { anima
     if (wrapperElement) {
       observer.observe(wrapperElement);
     }
+    
 
     // 3. Função de limpeza
     return () => {

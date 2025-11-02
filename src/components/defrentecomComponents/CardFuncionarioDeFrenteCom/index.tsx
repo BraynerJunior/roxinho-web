@@ -54,12 +54,12 @@ export default function CardFuncionarioDeFrenteCom({
         )}
       >
         <div>
-          <h2 className="font-semibold text-violet-eggplant-900 text-sm">
+          <h2 className="font-semibold text-violet-eggplant-900 text-sm text-nowrap">
             {name}
           </h2>
-          <p className="text-violet-eggplant-900/80 text-sm">{role}</p>
+          <p className="text-violet-eggplant-900/80 text-sm text-nowrap">{role}</p>
         </div>
-        <p className="text-xs font-light text-right text-violet-eggplant-900">{formatDistanceToNow(createdAt)}</p>
+        <p className="text-xs font-light text-right text-violet-eggplant-900 text-nowrap" >{formatDistanceToNow(createdAt)}</p>
       </div>
     </div>
   );
