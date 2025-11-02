@@ -1,8 +1,10 @@
 import Image from "next/image";
 import clsx from "clsx";
 import { formatDistanceToNow } from "@/utils/format-datetime";
+import Link from "next/link";
 
 export interface CardFuncionarioDeFrenteComProps {
+  id: string
   name: string;
   role: string;
   profilePictureUrl: string | undefined;
@@ -10,18 +12,22 @@ export interface CardFuncionarioDeFrenteComProps {
 }
 
 export default function CardFuncionarioDeFrenteCom({
+  id,
   name,
   role,
-  profilePictureUrl = "/images/pessoasAleatorio.png",
+  profilePictureUrl = "/images/default-profile-picture.png",
   createdAt,
 }: CardFuncionarioDeFrenteComProps) {
+  const [firstName, secondName] = name.split(" ");
+
   return (
-    <div
+    <Link
+      href={`/defrentecom/${id}`}
       className={clsx(
         "relative flex items-center gap-4",
         "bg-violet-200/60 backdrop-blur-md",
         "border border-violet-200/20",
-        "rounded-xl p-4 pr-8",
+        "rounded-xl p-4 pr-8 mx-8",
         "shadow-lg shadow-violet-900/20",
         "group",
         "brightness-90 hover:brightness-100"
@@ -55,12 +61,16 @@ export default function CardFuncionarioDeFrenteCom({
       >
         <div>
           <h2 className="font-semibold text-violet-eggplant-900 text-sm text-nowrap">
-            {name}
+            {firstName} <span className="hidden sm:inline-block"> {secondName}</span>
           </h2>
-          <p className="text-violet-eggplant-900/80 text-sm text-nowrap">{role}</p>
+          <p className="text-violet-eggplant-900/80 text-sm text-nowrap">
+            {role}
+          </p>
         </div>
-        <p className="text-xs font-light text-right text-violet-eggplant-900 text-nowrap" >{formatDistanceToNow(createdAt)}</p>
+        <p className="text-xs font-light text-violet-eggplant-900 text-nowrap">
+          {formatDistanceToNow(createdAt)}
+        </p>
       </div>
-    </div>
+    </Link>
   );
 }

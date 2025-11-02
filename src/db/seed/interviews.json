@@ -3,7 +3,7 @@
     "id": "int-001",
     "user": {
       "id": "1",
-      "name": "Sergio Brayner aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "name": "Sergio Brayner",
       "role": "Atendente",
       "birthdate": "20-10-2005",
       "profilePictureUrl": "https://i.pinimg.com/736x/66/cc/37/66cc3796f046da81c02e6b63486664c7.jpg"
@@ -12,13 +12,33 @@
     "messages": [
       {
         "id": "msg-001",
-        "fromUser": true,
-        "content": "Olá, estou com dúvida sobre o procedimento X."
+        "fromUser": false,
+        "content": "Sergio, seja bem-vindo ao nosso podcast! Pra começar, conta pra gente como foi o seu início na equipe roxinho. Como você se sentiu nos primeiros dias?"
       },
       {
         "id": "msg-002",
+        "fromUser": true,
+        "content": "Obrigado pelo convite! No começo foi um misto de empolgação e nervosismo. Eu já acompanhava a cultura da empresa e sempre admirei o foco em inovação e empatia. Quando entrei, fiquei impressionado com o acolhimento do time e a forma como todos colaboram. Mesmo sendo novo, senti que minha opinião tinha valor desde o primeiro dia."
+      },
+      {
+        "id": "msg-003",
         "fromUser": false,
-        "content": "Oi Sergio! Posso te ajudar. Qual é exatamente sua dúvida?"
+        "content": "Isso é ótimo de ouvir! E no seu dia a dia como atendente, quais são os maiores desafios e o que mais te motiva?"
+      },
+      {
+        "id": "msg-004",
+        "fromUser": true,
+        "content": "O maior desafio é manter o equilíbrio entre eficiência e empatia. Atendemos muitas pessoas, e cada uma tem uma história diferente. O que me motiva é justamente poder transformar um problema em uma boa experiência para o cliente. Saber que ajudei alguém a resolver algo importante é muito gratificante."
+      },
+      {
+        "id": "msg-005",
+        "fromUser": false,
+        "content": "Excelente perspectiva, Sergio. E pra fechar, qual conselho você daria pra quem quer entrar na equipe roxinho?"
+      },
+      {
+        "id": "msg-006",
+        "fromUser": true,
+        "content": "Eu diria pra vir com o coração aberto e com vontade de aprender. Aqui o aprendizado é constante e o ambiente é muito colaborativo. O segredo é ser curioso, escutar bem e se adaptar rápido. É um lugar onde quem gosta de desafios se sente em casa!"
       }
     ]
   },
@@ -33,19 +53,34 @@
     "createdAt": "2025-11-01T09:30:00Z",
     "messages": [
       {
-        "id": "msg-003",
-        "fromUser": true,
-        "content": "Bom dia, preciso de acesso ao sistema Y."
-      },
-      {
-        "id": "msg-004",
+        "id": "msg-007",
         "fromUser": false,
-        "content": "Bom dia Alberto, você já enviou o formulário de solicitação?"
+        "content": "Alberto, é um prazer te receber aqui no podcast da equipe roxinho. Conta pra gente um pouco sobre o seu dia a dia e o que mais gosta na sua rotina de trabalho."
       },
       {
-        "id": "msg-005",
+        "id": "msg-008",
         "fromUser": true,
-        "content": "Sim, mas ainda não recebi confirmação."
+        "content": "O prazer é meu! O dia a dia é bem dinâmico. Cada atendimento é uma nova história, um novo desafio. O que eu mais gosto é da liberdade que temos pra encontrar soluções criativas — a empresa confia bastante na nossa autonomia. Isso faz toda a diferença."
+      },
+      {
+        "id": "msg-009",
+        "fromUser": false,
+        "content": "E como é trabalhar em uma equipe tão voltada pra inovação? Você sente que isso influencia na forma como você encara o trabalho?"
+      },
+      {
+        "id": "msg-010",
+        "fromUser": true,
+        "content": "Com certeza! Trabalhar com pessoas que pensam fora da caixa inspira muito. A cultura da empresa nos incentiva a propor ideias e questionar processos. Isso cria um ambiente vivo, onde a gente sente que faz parte da construção do futuro da empresa."
+      },
+      {
+        "id": "msg-011",
+        "fromUser": false,
+        "content": "E pra quem está ouvindo e sonha em fazer parte da equipe, o que você diria?"
+      },
+      {
+        "id": "msg-012",
+        "fromUser": true,
+        "content": "Diria pra não ter medo de tentar e, principalmente, de aprender. O roxinho valoriza pessoas autênticas e colaborativas. Se você gosta de ajudar, de aprender com os outros e de crescer junto, vai se dar muito bem aqui."
       }
     ]
   },
@@ -60,14 +95,24 @@
     "createdAt": "2025-11-01T10:00:00Z",
     "messages": [
       {
-        "id": "msg-006",
-        "fromUser": true,
-        "content": "Gostaria de revisar o caso do paciente Z."
+        "id": "msg-013",
+        "fromUser": false,
+        "content": "Andréa, bem-vinda! Você atua como psicóloga na equipe roxinho. Como é aplicar a psicologia dentro de um ambiente corporativo tão voltado à inovação e tecnologia?"
       },
       {
-        "id": "msg-007",
+        "id": "msg-014",
+        "fromUser": true,
+        "content": "É uma experiência muito enriquecedora. A psicologia dentro da equipe roxinho vai além do atendimento individual — está presente na cultura, nas relações e na forma como olhamos para o bem-estar. Trabalhamos para que as pessoas se sintam seguras, valorizadas e emocionalmente equilibradas para darem o seu melhor."
+      },
+      {
+        "id": "msg-015",
         "fromUser": false,
-        "content": "Claro, podemos marcar uma reunião para discutir os detalhes."
+        "content": "Isso é incrível. E como você vê a importância de cuidar da saúde mental dentro de um time que vive sob pressão e metas?"
+      },
+      {
+        "id": "msg-016",
+        "fromUser": true,
+        "content": "É essencial. Pressão faz parte, mas o segredo é aprender a lidar com ela de forma saudável. A equipe roxinho tem investido em programas de escuta, pausas conscientes e acompanhamento psicológico. A ideia é mostrar que produtividade e saúde mental não são opostos, e sim aliados."
       }
     ]
   },
@@ -82,14 +127,34 @@
     "createdAt": "2025-11-01T10:30:00Z",
     "messages": [
       {
-        "id": "msg-008",
-        "fromUser": true,
-        "content": "Preciso aprovar os relatórios da equipe."
+        "id": "msg-017",
+        "fromUser": false,
+        "content": "Juliana, é um prazer te ter aqui! Como coordenadora, você tem uma visão ampla da equipe. Conta um pouco sobre como é liderar dentro da cultura roxinho."
       },
       {
-        "id": "msg-009",
+        "id": "msg-018",
+        "fromUser": true,
+        "content": "Obrigada pelo convite! Liderar aqui é um desafio delicioso. A empresa confia muito nas pessoas, então meu papel é mais de facilitadora do que de chefe. Eu busco inspirar, ouvir e dar autonomia. Quando a equipe se sente parte do processo, os resultados vêm naturalmente."
+      },
+      {
+        "id": "msg-019",
         "fromUser": false,
-        "content": "Juliana, todos os relatórios foram enviados e estão prontos para revisão."
+        "content": "E o que você diria que diferencia o roxinho de outras empresas onde já trabalhou?"
+      },
+      {
+        "id": "msg-020",
+        "fromUser": true,
+        "content": "A cultura. Aqui, errar faz parte do aprendizado. A gente não tem medo de testar ideias novas, e isso cria um ambiente muito inovador e humano ao mesmo tempo. As pessoas se sentem confortáveis pra serem autênticas, e isso reflete diretamente na qualidade do trabalho."
+      },
+      {
+        "id": "msg-021",
+        "fromUser": false,
+        "content": "Que incrível, Juliana. Dá pra sentir a energia positiva só de ouvir. Alguma mensagem final pra quem está ouvindo?"
+      },
+      {
+        "id": "msg-022",
+        "fromUser": true,
+        "content": "Sim: valorizem o coletivo. O sucesso da equipe roxinho não vem de um gênio isolado, mas da soma de talentos diferentes trabalhando com um propósito em comum."
       }
     ]
   },
@@ -104,14 +169,34 @@
     "createdAt": "2025-11-01T11:00:00Z",
     "messages": [
       {
-        "id": "msg-010",
-        "fromUser": true,
-        "content": "Gostaria de atualizar os registros do paciente Y."
+        "id": "msg-023",
+        "fromUser": false,
+        "content": "Cláudia, muito bom te receber! Você trabalha com o bem-estar emocional dos colaboradores. Como é acompanhar o crescimento das pessoas dentro da equipe roxinho?"
       },
       {
-        "id": "msg-011",
+        "id": "msg-024",
+        "fromUser": true,
+        "content": "É uma jornada linda. Ver alguém chegando inseguro e, com o tempo, florescendo e ganhando confiança é muito recompensador. A equipe valoriza o desenvolvimento humano tanto quanto o técnico, e isso faz toda a diferença."
+      },
+      {
+        "id": "msg-025",
         "fromUser": false,
-        "content": "Perfeito, Cláudia. Posso enviar os formulários atualizados."
+        "content": "E como vocês trabalham para manter o clima saudável mesmo em momentos de alta demanda?"
+      },
+      {
+        "id": "msg-026",
+        "fromUser": true,
+        "content": "Nós promovemos espaços de escuta e troca. Também incentivamos pausas ativas, rodas de conversa e momentos de descontração. A ideia é lembrar sempre que somos humanos antes de profissionais — e que cuidar da mente é cuidar do desempenho também."
+      },
+      {
+        "id": "msg-027",
+        "fromUser": false,
+        "content": "Perfeito, Cláudia. Por fim, o que o roxinho representa pra você?"
+      },
+      {
+        "id": "msg-028",
+        "fromUser": true,
+        "content": "Pra mim, o roxinho representa pertencimento. É um lugar onde a empatia e o propósito andam juntos. Trabalhar aqui é se sentir parte de algo maior."
       }
     ]
   }
