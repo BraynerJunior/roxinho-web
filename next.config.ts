@@ -2,7 +2,20 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ['br.pinterest.com',"i.pinimg.com"]
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'i.pinimg.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'br.pinterest.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   }
 };
 
