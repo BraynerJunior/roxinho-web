@@ -1,34 +1,32 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// repositoryJson.ts
+
 import { InterviewModel } from "@/models/interview/interview-model";
 import { InterviewRepository, InterviewSummary } from "./interview-repository";
-import { resolve } from "path";
-import { readFile } from "fs/promises";
 import { SIMULATE_WAIT_IN_MS } from "@/lib/constants";
 
-const ROOT_DIR = process.cwd();
-const JSON_USERS_FILE_PATH = resolve(
-  ROOT_DIR,
-  "src",
-  "db",
-  "seed",
-  "interviews.json"
-);
+// 1. Importe o JSON diretamente!
+// O bundler vai incluir esse arquivo no seu código de servidor.
+import interviewsData from "@/db/seed/interviews.json";
 
 export class JsonInterviewRepository implements InterviewRepository {
   private async simulateWait() {
     if (SIMULATE_WAIT_IN_MS <= 0) return;
-
     await new Promise((resolve) => setTimeout(resolve, SIMULATE_WAIT_IN_MS));
   }
 
-  private async readFromDisk(): Promise<InterviewModel[]> {
-    const jsonContent = await readFile(JSON_USERS_FILE_PATH, "utf-8");
-    const parsedJson = JSON.parse(jsonContent);
+  // 2. Esta função agora apenas lê o JSON importado.
+  // Note que ela não precisa mais ser 'async' (a menos do simulateWait)
+  private async getParsedData(): Promise<InterviewModel[]> {
+    // O 'interviewsData' já é o JSON parseado
+    const parsedJson = interviewsData;
 
     let interviews: InterviewModel[] = [];
     if (Array.isArray(parsedJson)) {
       interviews = parsedJson as InterviewModel[];
-    } else if (parsedJson && Array.isArray(parsedJson.interview)) {
-      interviews = parsedJson.interview as InterviewModel[];
+    } else if (parsedJson && Array.isArray((parsedJson as any).interview)) {
+      // Mantendo sua lógica original para o caso do JSON ter um formato aninhado
+      interviews = (parsedJson as any).interview as InterviewModel[];
     }
 
     return interviews;
@@ -37,7 +35,8 @@ export class JsonInterviewRepository implements InterviewRepository {
   async findALlSummaries(): Promise<InterviewSummary[]> {
     await this.simulateWait();
 
-    const interviews = await this.readFromDisk();
+    // 3. Use a nova função
+    const interviews = await this.getParsedData();
 
     const summaries = interviews.map((interview) => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -51,14 +50,16 @@ export class JsonInterviewRepository implements InterviewRepository {
   async findAll(): Promise<InterviewModel[]> {
     await this.simulateWait();
 
-    const interview = await this.readFromDisk();
+    // 4. Use a nova função
+    const interview = await this.getParsedData();
     return interview;
   }
 
   async findById(id: string): Promise<InterviewModel> {
     await this.simulateWait();
 
-    const interviews = await this.readFromDisk();
+    // 5. Use a nova função
+    const interviews = await this.getParsedData();
     const interview = interviews.find((user) => user.id === id);
 
     if (!interview) throw new Error("Entrevista não encontrada para ID");
