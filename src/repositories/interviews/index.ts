@@ -1,4 +1,5 @@
+import { DrizzleInterviewRepository } from "./drizzle-interview.repository";
 import { InterviewRepository } from "./interview-repository";
-import { JsonInterviewRepository } from "./json-interview-repository";
 
-export const interviewRepository: InterviewRepository = new JsonInterviewRepository();
+export const interviewRepository: InterviewRepository =
+  new DrizzleInterviewRepository();

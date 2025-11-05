@@ -1,7 +1,7 @@
 export type UserModel = {
-  id: string;
-  name: string;
-  role: string;
-  birthdate: string;
-  profilePictureUrl?: string;
+  id: number;
+  name: string | null;
+  role: string | null;
+  birthdate?: string | null;
+  avatarUrl?: string | null; 
 };
