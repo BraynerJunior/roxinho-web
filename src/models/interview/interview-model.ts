@@ -1,11 +1,11 @@
 import { UserModel } from "../user/user-model";
 
 export type InterviewModel = {
-  id: string;
+  id: number;
   user: UserModel;
   createdAt: string;
   messages: {
-    id: string;
+    id: number;
     fromUser: boolean;
     content: string;
   }[];
