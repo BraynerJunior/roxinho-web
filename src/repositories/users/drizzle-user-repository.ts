@@ -1,14 +1,15 @@
 import { UserModel } from "@/models/user/user-model";
-import { UserRepository } from "./user-repository";
-import { drizzleDb } from "@/db/drizzle";
+import { RegisterInput, UserRepository } from "./user-repository";
+import { db } from "@/db/drizzle";
 import { usersTable } from "@/db/drizzle/schema/users";
 import { profilesTable } from "@/db/drizzle/schema/profiles";
 import { jobRolesTable } from "@/db/drizzle/schema/job-roles";
 import { eq } from "drizzle-orm";
+import bcrypt from "bcryptjs";
 
 export class DrizzleUserRepository implements UserRepository {
   async findAll(): Promise<UserModel[]> {
-    const results = await drizzleDb
+    const results = await db
       .select({
         id: usersTable.id,
         name: profilesTable.name,
@@ -23,7 +24,7 @@ export class DrizzleUserRepository implements UserRepository {
     return results;
   }
   async findById(id: string): Promise<UserModel> {
-    const results = await drizzleDb
+    const results = await db
       .select({
         id: usersTable.id,
         name: profilesTable.name,
@@ -40,5 +41,44 @@ export class DrizzleUserRepository implements UserRepository {
     if (!user) throw new Error(`Usuário não encontrado`);
 
     return user;
+  }
+
+  async create(
+    data: RegisterInput
+  ): Promise<
+    | { success: true; user: { id: number; email: string } }
+    | { success: false; message: string }
+  > {
+    try {
+      const existingUser = await db
+        .select()
+        .from(usersTable)
+        .where(eq(usersTable.email, data.email));
+
+      if (existingUser.length > 0) {
+        return { success: false, message: "E-mail já cadastrado" };
+      }
+
+      const hashedPassword = await bcrypt.hash(data.password, 10);
+
+      const [user] = await db
+        .insert(usersTable)
+        .values({
+          email: data.email,
+          passwordHash: hashedPassword,
+        })
+        .returning({ id: usersTable.id, email: usersTable.email });
+
+      return { success: true, user };
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      if (error.code === "23505") {
+        return { success: false, message: "E-mail já cadastrado" };
+      }
+
+      console.error("Erro inesperado ao criar usuário: ", error);
+
+      return { success: false, message: "Erro interno ao criar usuário" };
+    }
   }
 }

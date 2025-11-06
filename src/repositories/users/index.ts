@@ -1,4 +1,4 @@
-import { JsonUserRepository } from "./json-user-repository";
+import { DrizzleUserRepository } from "./drizzle-user-repository";
 import { UserRepository } from "./user-repository";
 
-export const userRepository: UserRepository = new JsonUserRepository();
+export const userRepository: UserRepository = new DrizzleUserRepository();

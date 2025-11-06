@@ -1,6 +1,6 @@
 import { InterviewModel } from "@/models/interview/interview-model";
 import { InterviewRepository } from "./interview-repository";
-import { drizzleDb } from "@/db/drizzle";
+import { db } from "@/db/drizzle";
 import {
   interviewMessagesTable,
   interviewsTable,
@@ -13,7 +13,7 @@ import { InterviewSummary } from "@/models/interview/interview-summary-model";
 
 export class DrizzleInterviewRepository implements InterviewRepository {
   async findALlSummaries(): Promise<InterviewSummary[]> {
-    const results = await drizzleDb
+    const results = await db
       .select({
         id: interviewsTable.id,
         userId: usersTable.id,
@@ -37,7 +37,7 @@ export class DrizzleInterviewRepository implements InterviewRepository {
   }
 
   async findById(id: string): Promise<InterviewModel> {
-    const [interview] = await drizzleDb
+    const [interview] = await db
       .select({
         id: interviewsTable.id,
         createdAt: interviewsTable.createdAt,
@@ -55,7 +55,7 @@ export class DrizzleInterviewRepository implements InterviewRepository {
     if (!interview) throw new Error("Entrevista não encotrada!");
 
     // Busca as mensagens separadamente
-    const messages = await drizzleDb
+    const messages = await db
       .select({
         id: interviewMessagesTable.id,
         fromUser: interviewMessagesTable.fromUser,
