@@ -4,7 +4,7 @@ import RoxinhoMessageBar from "./roxinho-message";
 import { limitarTexto } from "@/utils/text-transformer";
 
 export interface MessageContentProps {
-  id: string;
+  id: number;
   fromUser: boolean;
   content: string;
 }

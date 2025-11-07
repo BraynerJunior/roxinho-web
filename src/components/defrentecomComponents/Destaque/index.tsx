@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export interface DestaqueDeFrenteComProps {
-  id: string;
+  id: number;
   name: string;
   role: string;
   profilePictureUrl: string | undefined;
@@ -16,7 +16,7 @@ export default function DestaqueDeFrenteCom({
   profilePictureUrl = "/images/default-profile-picture.png",
   role,
 }: DestaqueDeFrenteComProps) {
-  const [firstName] = name.split(' ');
+  const [firstName] = name.split(" ");
   const formattedName = limitarTexto(name);
   const formattedRole = limitarTexto(role);
 

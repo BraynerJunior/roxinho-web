@@ -2,7 +2,8 @@
 // repositoryJson.ts
 
 import { InterviewModel } from "@/models/interview/interview-model";
-import { InterviewRepository, InterviewSummary } from "./interview-repository";
+import { InterviewRepository } from "./interview-repository";
+import { InterviewSummary } from "@/models/interview/interview-summary-model";
 import { SIMULATE_WAIT_IN_MS } from "@/lib/constants";
 
 // 1. Importe o JSON diretamente!
@@ -10,6 +11,9 @@ import { SIMULATE_WAIT_IN_MS } from "@/lib/constants";
 import interviewsData from "@/db/seed/interviews.json";
 
 export class JsonInterviewRepository implements InterviewRepository {
+  findALlSummaries(): Promise<InterviewSummary[]> {
+    throw new Error("Method not implemented.");
+  }
   private async simulateWait() {
     if (SIMULATE_WAIT_IN_MS <= 0) return;
     await new Promise((resolve) => setTimeout(resolve, SIMULATE_WAIT_IN_MS));
@@ -23,7 +27,7 @@ export class JsonInterviewRepository implements InterviewRepository {
 
     let interviews: InterviewModel[] = [];
     if (Array.isArray(parsedJson)) {
-      interviews = parsedJson as InterviewModel[];
+      interviews = parsedJson as unknown as InterviewModel[];
     } else if (parsedJson && Array.isArray((parsedJson as any).interview)) {
       // Mantendo sua lógica original para o caso do JSON ter um formato aninhado
       interviews = (parsedJson as any).interview as InterviewModel[];
@@ -32,20 +36,6 @@ export class JsonInterviewRepository implements InterviewRepository {
     return interviews;
   }
 
-  async findALlSummaries(): Promise<InterviewSummary[]> {
-    await this.simulateWait();
-
-    // 3. Use a nova função
-    const interviews = await this.getParsedData();
-
-    const summaries = interviews.map((interview) => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { messages: _, ...summary } = interview;
-      return summary;
-    });
-
-    return summaries;
-  }
 
   async findAll(): Promise<InterviewModel[]> {
     await this.simulateWait();
@@ -60,7 +50,7 @@ export class JsonInterviewRepository implements InterviewRepository {
 
     // 5. Use a nova função
     const interviews = await this.getParsedData();
-    const interview = interviews.find((user) => user.id === id);
+    const interview = interviews.find((user) => user.id === Number(id));
 
     if (!interview) throw new Error("Entrevista não encontrada para ID");
 
