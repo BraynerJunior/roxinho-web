@@ -18,6 +18,7 @@ export class DrizzleInterviewRepository implements InterviewRepository {
         id: interviewsTable.id,
         userId: usersTable.id,
         username: profilesTable.name,
+        avatarUrl: profilesTable.avatarUrl,
         jobRole: jobRolesTable.name,
         createdAt: interviewsTable.createdAt,
       })

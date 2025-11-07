@@ -1,11 +1,28 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import CardFuncionarioDeFrenteCom from "@/components/defrentecomComponents/CardFuncionarioDeFrenteCom";
 import DestaqueDeFrenteCom from "@/components/defrentecomComponents/Destaque";
-import { findAllInterviews } from "@/lib/interview/queries";
+import { findALlSummariesInterviews } from "@/lib/interview/queries";
 
 import clsx from "clsx";
 
 export default async function DeFrenteComPage() {
-  const interviews = await findAllInterviews();
+  const interviews = await findALlSummariesInterviews();
+
+  if (!interviews || interviews.length === 0) {
+    return (
+      <div className={clsx(
+        "flex justify-center items-center",
+        "w-screen min-h-screen",
+        "bg-[url(/images/backgroundhome.svg)] bg-cover"
+      )}>
+        <div className="text-center text-violet-100">
+          <h1 className="text-4xl mb-4">De frente Com</h1>
+          <p>Nenhuma entrevista encontrada.</p>
+        </div>
+      </div>
+    );
+  }
+
   const [lastInterview, ...allInterviews] = interviews;
 
   return (
@@ -26,9 +43,9 @@ export default async function DeFrenteComPage() {
         <h1 className="text-4xl text-violet-100">De frente Com</h1>
         <DestaqueDeFrenteCom
           id={lastInterview.id}
-          name={lastInterview.user.name}
-          role={lastInterview.user.role}
-          profilePictureUrl={lastInterview.user.profilePictureUrl}
+          name={lastInterview.username}
+          role={lastInterview.jobRole}
+          profilePictureUrl={lastInterview.avatarUrl}
         />
         <div className={clsx("mt-16")}>
           <h2
@@ -52,7 +69,7 @@ export default async function DeFrenteComPage() {
             )}
             style={{ overscrollBehavior: "contain" }}
           >
-            {allInterviews.map((interview) => {
+            {allInterviews.map((interview: any) => {
               return (
                 <CardFuncionarioDeFrenteCom
                   id={interview.id}

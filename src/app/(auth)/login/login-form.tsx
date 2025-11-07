@@ -2,8 +2,8 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { registerSchema, RegisterSchema } from "@/lib/validations/auth-schemas";
-import { registerUser } from "@/actions/auth/register";
+import { loginSchema, LoginSchema } from "@/lib/validations/auth-schemas";
+import { loginAction } from "@/actions/auth/login";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -16,20 +16,21 @@ import {
 } from "@/components/ui/form";
 import { toast } from "sonner";
 
-export function RegisterForm() {
-  const form = useForm<RegisterSchema>({
-    resolver: zodResolver(registerSchema),
+export function LoginForm() {
+  const form = useForm<LoginSchema>({
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
-      confirmPassword: "",
     },
   });
 
-  const onSubmit = async (values: RegisterSchema) => {
-    const result = await registerUser(values);
-    if (result?.success) {
-      toast.success("Usuário registrado!");
+  const onSubmit = async (values: LoginSchema) => {
+    const result = await loginAction(values);
+    if (result?.error) {
+      toast.error("Credenciais inválidas");
+    } else {
+      toast.success("Login realizado com sucesso!");
     }
   };
 
@@ -37,7 +38,7 @@ export function RegisterForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-3 w-80"
+        className="flex flex-col gap-3"
       >
         <FormField
           control={form.control}
@@ -67,25 +68,7 @@ export function RegisterForm() {
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="confirmPassword"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Confirme a senha</FormLabel>
-              <FormControl>
-                <Input
-                  type="password"
-                  placeholder="Repita a senha"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <Button type="submit">Registrar</Button>
+        <Button type="submit">Entrar</Button>
       </form>
     </Form>
   );

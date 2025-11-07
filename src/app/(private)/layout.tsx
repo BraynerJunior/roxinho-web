@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+import { getSessionOrThrow } from "@/lib/auth/session";
 import React from "react";
 
 type PrivateLatoutsProps = {
@@ -6,9 +6,9 @@ type PrivateLatoutsProps = {
 };
 
 export default async function PrivateLayout({ children }: PrivateLatoutsProps) {
-  const session = await auth();
-
-  if (!session?.user) {
+  try {
+    await getSessionOrThrow();
+  } catch {
     return <div>Você precisa estar logado</div>;
   }
 

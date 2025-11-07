@@ -1,15 +1,17 @@
-import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { db } from "@/db/drizzle";
 import { usersTable } from "@/db/drizzle/schema/users";
 import { eq } from "drizzle-orm";
-import bcrypt from "bcryptjs"; // certifique-se de instalar:
-import { loginSchema } from "../validations/auth-schemas";
+import bcrypt from "bcryptjs";
+import { loginSchema } from "@/lib/validations/auth-schemas";
+import { Session, AuthOptions } from "next-auth";
+import type { JWT as JWTType } from "next-auth/jwt";
+import type { User as NextAuthUser } from "next-auth";
+import type { AdapterUser } from "next-auth/adapters";
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
+const authOptions: AuthOptions = {
   adapter: DrizzleAdapter(db),
-
   providers: [
     Credentials({
       name: "Credentials",
@@ -19,9 +21,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
       async authorize(credentials) {
         const parsed = loginSchema.safeParse(credentials);
-        if (!parsed.success) {
-          throw new Error("Dados inválidos");
-        }
+        if (!parsed.success) throw new Error("Dados inválidos");
 
         const { email, password } = parsed.data;
 
@@ -44,25 +44,27 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
     }),
   ],
-
-  pages: {
-    signIn: "/login",
-  },
-
-  session: {
-    strategy: "jwt",
-  },
-
+  pages: { signIn: "/login" },
+  session: { strategy: "jwt" },
   callbacks: {
-    async jwt({ token, user }) {
-      if (user) token.role = user.role;
+    async jwt({
+      token,
+      user,
+    }: {
+      token: JWTType;
+      user?: NextAuthUser | AdapterUser;
+    }) {
+      if (user) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        token.role = (user as any).role || "user";
+      }
       return token;
     },
-    async session({ session, token }) {
-      if (session.user && token) {
-        session.user.role = token.role;
-      }
+    async session({ session, token }: { session: Session; token: JWTType }) {
+      if (session.user && token) session.user.role = token.role;
       return session;
     },
   },
-});
+};
+
+export default authOptions;

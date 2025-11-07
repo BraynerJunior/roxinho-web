@@ -3,7 +3,7 @@ import { findALlSummariesInterviews, findInterviewById } from "@/lib/interview/q
 import { InterviewModel } from "@/models/interview/interview-model";
 import { MessageContentProps } from "@/components/defrentecomComponents/MessageBar";
 import { DeFrenteComResizable } from "@/components/defrentecomComponents/DeFrenteComResizable";
-import { InterviewSummary } from "@/repositories/interviews/interview-repository";
+import { InterviewSummary } from "@/models/interview/interview-summary-model";
 
 export interface DeFrenteComSlugPageProps {
   params: Promise<{ id: string }>;

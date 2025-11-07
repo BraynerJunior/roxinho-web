@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+import { getSessionOrThrow } from "@/lib/auth/session";
 import React from "react";
 
 type AdminLayoutProps = {
@@ -6,15 +6,16 @@ type AdminLayoutProps = {
 };
 
 export default async function AdminLayout({ children }: AdminLayoutProps) {
-/*   const session = await auth();
-
-  if (!session?.user) {
+  let user;
+  try {
+    user = await getSessionOrThrow();
+  } catch {
     return <div>Você precisa estar logado</div>;
   }
 
-  if (session.user.role !== "admin") {
+  if (user?.role !== "admin") {
     return <div>Acesso restrito a administradores.</div>;
-  } */
+  }
 
   return <>{children}</>;
 }

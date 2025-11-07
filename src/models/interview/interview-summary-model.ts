@@ -4,4 +4,5 @@ export type InterviewSummary = {
   username: string;
   jobRole: string;
   createdAt: string;
+  avatarUrl?: string;
 };
