@@ -71,7 +71,7 @@ export function UserMenu({ user }: UserMenuProps) {
 
           {user.role === "admin" && (
             <DropdownMenuItem className="hover:bg-violet-eggplant-400" asChild>
-              <Link href="/admin">
+              <Link href="/dashboard">
                 Painel Administrador
               </Link>
             </DropdownMenuItem>

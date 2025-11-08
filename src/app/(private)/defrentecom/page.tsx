@@ -46,7 +46,7 @@ export default async function DeFrenteComPage() {
         <DestaqueDeFrenteCom
           id={lastInterview.id}
           name={lastInterview.username}
-          role={lastInterview.jobRole}
+          role={lastInterview.jobRole ?? "Sem cargo"}
           profilePictureUrl={lastInterview.avatarUrl}
         />
         <div className={clsx("mt-16")}>
