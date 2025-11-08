@@ -5,6 +5,8 @@ export type RegisterInput = Omit<RegisterSchema, "confirmPassword">;
 export interface UserRepository {
   findAll(): Promise<UserModel[]>;
   findById(id: string): Promise<UserModel>;
+  removeAccess(userId: string): Promise<{ success: boolean }>;
+  giveAccess(userId: string): Promise<{ success: boolean }>;
   create(
     data: RegisterInput
   ): Promise<

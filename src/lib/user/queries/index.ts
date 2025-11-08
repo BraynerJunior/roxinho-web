@@ -8,3 +8,13 @@ export const findUserById = cache(async (id: string) => {
 export const findAllUsers = cache(async () => {
   return userRepository.findAll();
 });
+
+export const giveAccess = cache(async (userId: string) => {
+  return userRepository.giveAccess(userId);
+});
+
+export const removeAccess = cache(async () => {
+  return userRepository.findAll();
+});
+
+

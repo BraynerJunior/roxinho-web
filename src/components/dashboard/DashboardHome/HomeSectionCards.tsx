@@ -2,6 +2,7 @@ import {
   IconTrendingDown,
   IconTrendingUp,
   IconTrophy,
+  IconClick
 } from "@tabler/icons-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -19,7 +20,7 @@ export function HomeSectionCards() {
   return (
     <>
     <SiteHeader title="Resumo" />
-      <div className="grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
+      <div className=" [&_div]:text-violet-eggplant-900 grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
         <Card className="@container/card">
           <CardHeader>
             <CardDescription>De frente Com</CardDescription>
@@ -44,8 +45,6 @@ export function HomeSectionCards() {
             </CardTitle>
             <CardAction>
               <Badge variant="outline">
-                <IconTrendingDown />
-                -20%
               </Badge>
             </CardAction>
           </CardHeader>
@@ -54,51 +53,45 @@ export function HomeSectionCards() {
               Equipe top 1<IconTrophy className="size-4" />
             </div>
             <div className="text-muted-foreground">
-              Acquisition needs attention
+             Melhor agente: Junin
             </div>
           </CardFooter>
         </Card>
         <Card className="@container/card">
           <CardHeader>
-            <CardDescription>Active Accounts</CardDescription>
+            <CardDescription>Jogos</CardDescription>
             <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-              45,678
+              Caça ao Tesouro
             </CardTitle>
-            <CardAction>
-              <Badge variant="outline">
-                <IconTrendingUp />
-                +12.5%
-              </Badge>
-            </CardAction>
           </CardHeader>
           <CardFooter className="flex-col items-start gap-1.5 text-sm">
             <div className="line-clamp-1 flex gap-2 font-medium">
-              Strong user retention <IconTrendingUp className="size-4" />
+             4ª dica <IconTrendingUp className="size-4" />
             </div>
             <div className="text-muted-foreground">
-              Engagement exceed targets
+              Está no card de...
             </div>
           </CardFooter>
         </Card>
         <Card className="@container/card">
           <CardHeader>
-            <CardDescription>Growth Rate</CardDescription>
+            <CardDescription>Roxinho News</CardDescription>
             <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-              4.5%
+              Card Atualizado
             </CardTitle>
             <CardAction>
               <Badge variant="outline">
-                <IconTrendingUp />
-                +4.5%
+                Ver
+                <IconClick />
               </Badge>
             </CardAction>
           </CardHeader>
           <CardFooter className="flex-col items-start gap-1.5 text-sm">
             <div className="line-clamp-1 flex gap-2 font-medium">
-              Steady performance increase <IconTrendingUp className="size-4" />
+             Collections<IconTrendingUp className="size-4" />
             </div>
             <div className="text-muted-foreground">
-              Meets growth projections
+              Atraso na fatura
             </div>
           </CardFooter>
         </Card>

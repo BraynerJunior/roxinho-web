@@ -7,6 +7,7 @@ import { jobRolesTable } from "@/db/drizzle/schema/job-roles";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 
+
 export class DrizzleUserRepository implements UserRepository {
   async findAll(): Promise<UserModel[]> {
     const results = await db
@@ -23,6 +24,49 @@ export class DrizzleUserRepository implements UserRepository {
 
     return results;
   }
+
+  async giveAccess(userId: string): Promise<{ success: boolean }> {
+    const user = await this.findById(userId)
+
+    let success = false
+
+    if (!user) throw new Error(`Usuário não encontrado`);
+
+    const userNotAllowed = user.role === "not_allowed"
+
+    if (userNotAllowed) {
+      await db
+        .update(usersTable)
+        .set({ systemRole: "user" })
+        .where(eq(usersTable.id, Number(userId)))
+
+      success = true
+    }
+    return { success }
+  }
+
+  async removeAccess(userId: string): Promise<{ success: boolean }> {
+    const user = await this.findById(userId)
+
+    let success = false
+
+    if (!user) throw new Error(`Usuário não encontrado`);
+
+    const userAllowed = user.role !== "not_allowed"
+
+    if (userAllowed) {
+      await db
+        .update(usersTable)
+        .set({ systemRole: "not_allowed" })
+        .where(eq(usersTable.id, Number(userId)))
+
+      success = true
+
+    }
+    return { success }
+
+  }
+
   async findById(id: string): Promise<UserModel> {
     const results = await db
       .select({
