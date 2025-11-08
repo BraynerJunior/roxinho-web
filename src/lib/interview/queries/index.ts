@@ -15,7 +15,7 @@ export const findInterviewById = cache((id: string) => {
 export const findALlSummariesInterviews = cache(
   unstable_cache(
     async () => {
-      return interviewRepository.findALlSummaries();
+      return interviewRepository.findAllSummaries();
     },
     ["interviews"],
     {

@@ -1,8 +1,8 @@
 export type InterviewSummary = {
   id: number;
-  userId: number;
+  userId?: number | null;
   username: string;
-  jobRole: string;
-  createdAt: string;
+  jobRole: string | null;
   avatarUrl?: string | undefined;
+  createdAt: string;
 };

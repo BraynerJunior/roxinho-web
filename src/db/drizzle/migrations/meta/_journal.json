@@ -15,6 +15,13 @@
       "when": 1762463928441,
       "tag": "0001_neat_fat_cobra",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1762623936030,
+      "tag": "0002_freezing_pixie",
+      "breakpoints": true
     }
   ]
 }
