@@ -19,3 +19,5 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
 
   return <>{children}</>;
 }
+
+
