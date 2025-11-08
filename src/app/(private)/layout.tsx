@@ -1,4 +1,5 @@
-import { getSessionOrThrow } from "@/lib/auth/session";
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import React from "react";
 
 type PrivateLatoutsProps = {
@@ -6,11 +7,11 @@ type PrivateLatoutsProps = {
 };
 
 export default async function PrivateLayout({ children }: PrivateLatoutsProps) {
-  try {
-    await getSessionOrThrow();
-  } catch {
-    return <div>Você precisa estar logado</div>;
+  const session = await auth();
+
+  if (!session) {
+    redirect("/login");
   }
 
-  return <>{children}</>;
+  return <div>{children}</div>;
 }

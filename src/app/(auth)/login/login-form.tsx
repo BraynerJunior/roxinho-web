@@ -28,7 +28,7 @@ export function LoginForm() {
   const onSubmit = async (values: LoginSchema) => {
     const result = await loginAction(values);
     if (result?.error) {
-      toast.error("Credenciais inválidas");
+      toast.error("Erro ao logar");
     } else {
       toast.success("Login realizado com sucesso!");
     }

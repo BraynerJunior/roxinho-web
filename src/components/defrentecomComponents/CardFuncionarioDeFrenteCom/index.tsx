@@ -7,7 +7,7 @@ export interface CardFuncionarioDeFrenteComProps {
   id: string
   name: string;
   role: string;
-  profilePictureUrl: string | undefined;
+  profilePictureUrl?: string | undefined;
   createdAt: string;
 }
 

@@ -32,6 +32,7 @@ export class DrizzleInterviewRepository implements InterviewRepository {
       id: result.id,
       userId: result.userId,
       username: result.username ?? "Usuário sem nome",
+      avatarUrl: result.avatarUrl ?? undefined,
       jobRole: result.jobRole ?? "Sem cargo",
       createdAt: result.createdAt.toISOString(),
     }));

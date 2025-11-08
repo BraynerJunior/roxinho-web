@@ -10,11 +10,13 @@ export default async function DeFrenteComPage() {
 
   if (!interviews || interviews.length === 0) {
     return (
-      <div className={clsx(
-        "flex justify-center items-center",
-        "w-screen min-h-screen",
-        "bg-[url(/images/backgroundhome.svg)] bg-cover"
-      )}>
+      <div
+        className={clsx(
+          "flex justify-center items-center",
+          "w-screen min-h-screen",
+          "bg-[url(/images/backgroundhome.svg)] bg-cover"
+        )}
+      >
         <div className="text-center text-violet-100">
           <h1 className="text-4xl mb-4">De frente Com</h1>
           <p>Nenhuma entrevista encontrada.</p>
@@ -69,14 +71,20 @@ export default async function DeFrenteComPage() {
             )}
             style={{ overscrollBehavior: "contain" }}
           >
+            {(allInterviews.length <= 0 || !allInterviews) && (
+              <p className="self-center text-sm bg-violet-300 p-2 rounded-md text-violet-950">
+                Sem mais entrevistas no momento...
+              </p>
+            )}
+
             {allInterviews.map((interview: any) => {
               return (
                 <CardFuncionarioDeFrenteCom
                   id={interview.id}
-                  profilePictureUrl={interview.user.profilePictureUrl}
+                  profilePictureUrl={interview.avatarUrl}
                   key={interview.id}
-                  name={interview.user.name}
-                  role={interview.user.role}
+                  name={interview.username}
+                  role={interview.jobRole}
                   createdAt={interview.createdAt}
                 />
               );
