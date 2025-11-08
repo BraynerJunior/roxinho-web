@@ -9,13 +9,16 @@ import React from "react";
 export function SidebarLayout({ children }: { children: React.ReactNode }) {
   const currentPath = usePathname();
 
+  const isDashboard = currentPath === "/dashboard";
   const isHome = currentPath === "/home";
+
+  const show = !(isHome || isDashboard)
 
   return (
     <SidebarProvider>
       <div className="relative flex min-h-screen w-full">
         <div className="absolute inset-0">{children}</div>
-        {!isHome && (
+        {show && (
           <div className="flex flex-row gap-2 items-center justify-center">
             <AppSidebar />
             <div className="z-10">
