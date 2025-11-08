@@ -29,6 +29,10 @@ export class DrizzleInterviewRepository implements InterviewRepository {
       .orderBy(desc(interviewsTable.createdAt))
       .limit(1);
 
+    if(!result.id ) {
+      return null
+    }
+
     return {
       id: result.id,
       userId: result.userId,
