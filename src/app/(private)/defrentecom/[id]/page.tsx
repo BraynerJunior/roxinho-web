@@ -22,7 +22,7 @@ export default async function DeFrenteComChatPage({
       className={clsx(
         "flex justify-center items-center",
         "w-screen h-screen",
-        "from-violet-eggplant-500 bg-gradient-to-tr to-violet-400"
+        "from-violet-eggplant-500 bg-linear-to-tr to-violet-400"
       )}
     >
       <DeFrenteComResizable
