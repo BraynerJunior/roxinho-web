@@ -73,6 +73,7 @@ export default function DestaqueDeFrenteCom({
                 "text-center text-xl",
                 "rounded-sm",
                 "bg-violet-eggplant-600/30",
+                "text-violet-950",
                 "p-2"
               )}
             >
@@ -84,7 +85,8 @@ export default function DestaqueDeFrenteCom({
                   "bg-violet-200/60 backdrop-blur-md",
                   "border border-violet-200/20",
                   "p-2 rounded-sm",
-                  "text-sm"
+                  "text-sm",
+                  "text-violet-950"
                 )}
               >
                 <li>Nome: {formattedName}</li>
@@ -95,6 +97,7 @@ export default function DestaqueDeFrenteCom({
                   "bg-violet-200/60 backdrop-blur-md",
                   "border border-violet-200/20",
                   "p-2 rounded-sm",
+                  "text-violet-950",
                   "text-sm"
                 )}
               >

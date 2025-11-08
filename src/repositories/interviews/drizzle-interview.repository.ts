@@ -12,6 +12,33 @@ import { desc, eq } from "drizzle-orm";
 import { InterviewSummary } from "@/models/interview/interview-summary-model";
 
 export class DrizzleInterviewRepository implements InterviewRepository {
+  async findLatest(): Promise<InterviewSummary | null> {
+    const [result] = await db
+      .select({
+        id: interviewsTable.id,
+        userId: usersTable.id,
+        username: profilesTable.name,
+        avatarUrl: profilesTable.avatarUrl,
+        jobRole: jobRolesTable.name,
+        createdAt: interviewsTable.createdAt,
+      })
+      .from(interviewsTable)
+      .innerJoin(usersTable, eq(usersTable.id, interviewsTable.userId))
+      .innerJoin(profilesTable, eq(profilesTable.userId, usersTable.id))
+      .innerJoin(jobRolesTable, eq(jobRolesTable.id, profilesTable.jobRoleId))
+      .orderBy(desc(interviewsTable.createdAt))
+      .limit(1);
+
+    return {
+      id: result.id,
+      userId: result.userId,
+      username: result.username ?? "Usuário sem nome",
+      avatarUrl: result.avatarUrl ?? undefined,
+      jobRole: result.jobRole ?? "Sem cargo",
+      createdAt: result.createdAt.toISOString(),
+    };
+  }
+
   async findALlSummaries(): Promise<InterviewSummary[]> {
     const results = await db
       .select({
@@ -32,6 +59,7 @@ export class DrizzleInterviewRepository implements InterviewRepository {
       id: result.id,
       userId: result.userId,
       username: result.username ?? "Usuário sem nome",
+      avatarUrl: result.avatarUrl ?? undefined,
       jobRole: result.jobRole ?? "Sem cargo",
       createdAt: result.createdAt.toISOString(),
     }));

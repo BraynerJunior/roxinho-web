@@ -1,3 +1,4 @@
+import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { db } from "@/db/drizzle";
@@ -5,12 +6,10 @@ import { usersTable } from "@/db/drizzle/schema/users";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 import { loginSchema } from "@/lib/validations/auth-schemas";
-import { Session, AuthOptions } from "next-auth";
-import type { JWT as JWTType } from "next-auth/jwt";
-import type { User as NextAuthUser } from "next-auth";
-import type { AdapterUser } from "next-auth/adapters";
 
-const authOptions: AuthOptions = {
+const authConfig = NextAuth({
+  secret: process.env.AUTH_SECRET,
+  debug: true,
   adapter: DrizzleAdapter(db),
   providers: [
     Credentials({
@@ -20,51 +19,69 @@ const authOptions: AuthOptions = {
         password: { label: "Senha", type: "password" },
       },
       async authorize(credentials) {
-        const parsed = loginSchema.safeParse(credentials);
-        if (!parsed.success) throw new Error("Dados inválidos");
+        try {
+          console.log("🟣 Credenciais recebidas:", credentials);
 
-        const { email, password } = parsed.data;
+          const parsed = loginSchema.safeParse(credentials);
+          if (!parsed.success) {
+            console.error("❌ Erro ao validar schema:", parsed.error);
+            throw new Error("Dados inválidos");
+          }
 
-        const [user] = await db
-          .select()
-          .from(usersTable)
-          .where(eq(usersTable.email, email));
+          const { email, password } = parsed.data;
 
-        if (!user) throw new Error("Usuário não encontrado");
+          const [user] = await db
+            .select()
+            .from(usersTable)
+            .where(eq(usersTable.email, email));
 
-        const valid = await bcrypt.compare(password, user.passwordHash);
-        if (!valid) throw new Error("Senha incorreta");
+          console.log("🟢 Usuário encontrado:", user);
 
-        return {
-          id: user.id.toString(),
-          email: user.email,
-          name: user.email,
-          role: user.systemRole,
-        };
+          if (!user) throw new Error("Usuário não encontrado");
+          
+          if (!user.passwordHash) {
+             console.error("🔥 Usuário não possui hash de senha.");
+             throw new Error("Erro de configuração do usuário");
+          }
+
+          const valid = await bcrypt.compare(password, user.passwordHash);
+          console.log("🧩 Senha válida?", valid);
+
+          if (!valid) throw new Error("Senha incorreta");
+
+          const finalUser = {
+            id: user.id.toString(),
+            email: user.email,
+            name: user.email,
+            role: user.systemRole ?? "user", 
+          };
+
+          console.log("✅ Usuário autenticado:", finalUser);
+          return finalUser;
+        } catch (err) {
+          console.error("🔥 Erro no authorize():", err);
+          throw err;
+        }
       },
     }),
   ],
   pages: { signIn: "/login" },
   session: { strategy: "jwt" },
   callbacks: {
-    async jwt({
-      token,
-      user,
-    }: {
-      token: JWTType;
-      user?: NextAuthUser | AdapterUser;
-    }) {
-      if (user) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        token.role = (user as any).role || "user";
-      }
+    jwt({ token, user }) {
+      if (user) token.role = user.role;
       return token;
     },
-    async session({ session, token }: { session: Session; token: JWTType }) {
-      if (session.user && token) session.user.role = token.role;
+    session({ session, token }) {
+      if (session.user && token) {
+        session.user.role = token.role as string | undefined;
+      }
       return session;
     },
   },
-};
+});
 
-export default authOptions;
+export const handlers = authConfig.handlers;
+export const signIn = authConfig.signIn;
+export const signOut = authConfig.signOut;
+export const auth = authConfig.auth;

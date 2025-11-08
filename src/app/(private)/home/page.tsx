@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic';
 
 export default function Home() {
   return (
-    <main className="bg-[url(/images/backgroundhomee.jpg)] bg-cover bg-center bg-no-repeat min-h-screen">
+    <main className="bg-[url(/images/backgroundhome.svg)] bg-cover bg-center bg-no-repeat min-h-screen">
       <div className="w-full justify-center flex">
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 justify-items-center w-[90%] items-stretch my-14 gap-4 place-content-start">
           <div className="flex flex-col w-full h-full items-center md:justify-between gap-5">

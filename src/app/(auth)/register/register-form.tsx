@@ -15,6 +15,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { toast } from "sonner";
+import Link from "next/link";
+import {
+  PasswordInput,
+  PasswordInputAdornmentToggle,
+  PasswordInputInput,
+} from "@/components/ui/password-input";
 
 export function RegisterForm() {
   const form = useForm<RegisterSchema>({
@@ -34,59 +40,79 @@ export function RegisterForm() {
   };
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-3 w-80"
-      >
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>E-mail</FormLabel>
-              <FormControl>
-                <Input type="email" placeholder="E-mail" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+    <>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex flex-col gap-3"
+        >
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-violet-950">E-mail</FormLabel>
+                <FormControl>
+                  <Input type="email" placeholder="E-mail" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Senha</FormLabel>
-              <FormControl>
-                <Input type="password" placeholder="Senha" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-violet-950">Senha</FormLabel>
+                <FormControl>
+                  <PasswordInput>
+                    <PasswordInputInput
+                      placeholder="Senha"
+                      {...field}
+                    />
+                    <PasswordInputAdornmentToggle />
+                  </PasswordInput>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <FormField
-          control={form.control}
-          name="confirmPassword"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Confirme a senha</FormLabel>
-              <FormControl>
-                <Input
-                  type="password"
-                  placeholder="Repita a senha"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          <FormField
+            control={form.control}
+            name="confirmPassword"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-violet-950">
+                  Confirme a senha
+                </FormLabel>
+                <FormControl>
+                  <PasswordInput>
+                    <PasswordInputInput
+                      placeholder="Confirmar senha"
+                      {...field}
+                    />
+                    <PasswordInputAdornmentToggle />
+                  </PasswordInput>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <Button type="submit">Registrar</Button>
-      </form>
-    </Form>
+          <Button type="submit" className="bg-violet-600 hover:bg-violet-700">
+            Registrar
+          </Button>
+        </form>
+      </Form>
+      <p className="text-xs pt-2">
+        Ou entre{" "}
+        <Link className="text-sm text-violet-700 font-semibold" href="/login">
+          aqui!
+        </Link>
+      </p>
+    </>
   );
 }

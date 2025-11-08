@@ -40,10 +40,10 @@ export function DeFrenteComResizable({
           {interviews.map((interviewItem) => (
             <CardFuncionarioDeFrenteCom
               id={interviewItem.id}
-              profilePictureUrl={interviewItem.user.profilePictureUrl}
-              key={interviewItem.user.id}
-              name={interviewItem.user.name}
-              role={interviewItem.user.role}
+              profilePictureUrl={interviewItem.avatarUrl}
+              key={interviewItem.userId}
+              name={interviewItem.username}
+              role={interviewItem.jobRole}
               createdAt={interviewItem.createdAt}
             />
           ))}
