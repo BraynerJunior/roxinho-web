@@ -10,9 +10,9 @@ export default async function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100">
+    <div className="flex min-h-screen items-center justify-center bg-[url(/images/backgroundhome.svg)] bg-cover bg-center bg-no-repeat">
       <div className="w-full max-w-sm bg-white p-8 rounded-2xl shadow">
-        <h1 className="text-xl font-semibold mb-4 text-center">Entrar</h1>
+        <h1 className="text-xl font-semibold mb-4 text-center text-violet-950">Entrar</h1>
         <LoginForm />
       </div>
     </div>

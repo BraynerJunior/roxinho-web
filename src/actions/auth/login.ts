@@ -17,7 +17,7 @@ export async function loginAction(data: LoginSchema) {
     await signIn("credentials", {
       email,
       password,
-      redirect: false,
+      redirectTo: "/home",
     });
   } catch (error) {
     if (error instanceof AuthError) {

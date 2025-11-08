@@ -8,17 +8,18 @@ import {
 } from "../../ui/card";
 import { IoPersonOutline } from "react-icons/io5";
 import Link from "next/link";
+import { findLatestInterview } from "@/lib/interview/queries";
 
+export default async function CardDeFrenteCom() {
+  const lastInterview = await findLatestInterview();
+  const fallbackImageUrl = "/images/default-profile-picture.png"
 
-export default function CardDeFrenteCom() {
   return (
-      <Link href="defrentecom" className="block w-full h-full">
-    <Card
-      className="group relative flex-auto w-full h-full justify-end bg-violet-eggplant-500 hover:bg-violet-eggplant-600 duration-300 ease-out shadow-2xl hover:shadow-none hover:translate-y-3 text-white items-center lg:items-start overflow-hidden"
-    >
+    <Link href="defrentecom" className="block w-full h-full">
+      <Card className="group relative flex-auto w-full h-full justify-end bg-violet-eggplant-500 hover:bg-violet-eggplant-600 duration-300 ease-out shadow-2xl hover:shadow-none hover:translate-y-3 text-white items-center lg:items-start overflow-hidden">
         <div className="absolute inset-0 opacity-0 lg:opacity-0 group-hover:opacity-100 transition-opacity duration-500 brightness-70 delay-200">
           <Image
-            src="/images/pessoasAleatorio.png"
+            src={lastInterview?.avatarUrl ?? fallbackImageUrl}
             alt="Imagem de uma pessoa aleatoria"
             width={400}
             height={100}
@@ -34,7 +35,7 @@ export default function CardDeFrenteCom() {
             Saiba quem é a celebridade da vez
           </CardDescription>
         </CardHeader>
-    </Card>
-      </Link>
+      </Card>
+    </Link>
   );
 }
