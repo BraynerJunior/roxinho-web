@@ -4,12 +4,32 @@ import { db } from "@/db/drizzle";
 import { usersTable } from "@/db/drizzle/schema/users";
 import { profilesTable } from "@/db/drizzle/schema/profiles";
 import { jobRolesTable } from "@/db/drizzle/schema/job-roles";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 
+
 export class DrizzleUserRepository implements UserRepository {
-  async findAll(): Promise<UserModel[]> {
-    const results = await db
+   async findAll(
+    page: number = 1,
+    perPage: number = 10
+  ): Promise<{
+    data: UserModel[];
+    totalItems: number;
+    totalPages: number;
+    currentPage: number;
+  }> {
+    const offset = (page - 1) * perPage;
+
+    // Conta o total de usuários
+    const [countResult] = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(usersTable);
+
+    const totalItems = Number(countResult.count);
+    const totalPages = Math.ceil(totalItems / perPage);
+
+    // Busca os dados paginados
+    const data = await db
       .select({
         id: usersTable.id,
         name: profilesTable.name,
@@ -19,10 +39,60 @@ export class DrizzleUserRepository implements UserRepository {
       })
       .from(usersTable)
       .innerJoin(profilesTable, eq(profilesTable.userId, usersTable.id))
-      .innerJoin(jobRolesTable, eq(jobRolesTable.id, profilesTable.jobRoleId));
+      .innerJoin(jobRolesTable, eq(jobRolesTable.id, profilesTable.jobRoleId))
+      .limit(perPage)
+      .offset(offset);
 
-    return results;
+    return {
+      data,
+      totalItems,
+      totalPages,
+      currentPage: page,
+    };
   }
+
+  async giveAccess(userId: string): Promise<{ success: boolean }> {
+    const user = await this.findById(userId)
+
+    let success = false
+
+    if (!user) throw new Error(`Usuário não encontrado`);
+
+    const userNotAllowed = user.role === "not_allowed"
+
+    if (userNotAllowed) {
+      await db
+        .update(usersTable)
+        .set({ systemRole: "user" })
+        .where(eq(usersTable.id, Number(userId)))
+
+      success = true
+    }
+    return { success }
+  }
+
+  async removeAccess(userId: string): Promise<{ success: boolean }> {
+    const user = await this.findById(userId)
+
+    let success = false
+
+    if (!user) throw new Error(`Usuário não encontrado`);
+
+    const userAllowed = user.role !== "not_allowed"
+
+    if (userAllowed) {
+      await db
+        .update(usersTable)
+        .set({ systemRole: "not_allowed" })
+        .where(eq(usersTable.id, Number(userId)))
+
+      success = true
+
+    }
+    return { success }
+
+  }
+
   async findById(id: string): Promise<UserModel> {
     const results = await db
       .select({

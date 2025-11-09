@@ -1,0 +1,1 @@
+ALTER TABLE "users" ALTER COLUMN "system_role" SET DEFAULT 'not_allowed';
