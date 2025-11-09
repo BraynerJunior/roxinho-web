@@ -38,10 +38,10 @@ const authConfig = NextAuth({
           console.log("🟢 Usuário encontrado:", user);
 
           if (!user) throw new Error("Usuário não encontrado");
-          
+
           if (!user.passwordHash) {
-             console.error("🔥 Usuário não possui hash de senha.");
-             throw new Error("Erro de configuração do usuário");
+            console.error("🔥 Usuário não possui hash de senha.");
+            throw new Error("Erro de configuração do usuário");
           }
 
           const valid = await bcrypt.compare(password, user.passwordHash);
@@ -53,7 +53,7 @@ const authConfig = NextAuth({
             id: user.id.toString(),
             email: user.email,
             name: user.email,
-            role: user.systemRole ?? "user", 
+            role: user.systemRole ?? "not_allowed",
           };
 
           console.log("✅ Usuário autenticado:", finalUser);
@@ -69,12 +69,16 @@ const authConfig = NextAuth({
   session: { strategy: "jwt" },
   callbacks: {
     jwt({ token, user }) {
-      if (user) token.role = user.role;
+      if (user) {
+        token.role = user.role;
+        token.id = user.id;
+      }
       return token;
     },
     session({ session, token }) {
       if (session.user && token) {
         session.user.role = token.role as string | undefined;
+        session.user.id = token.id as string;
       }
       return session;
     },

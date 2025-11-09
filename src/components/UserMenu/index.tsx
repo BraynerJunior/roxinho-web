@@ -15,12 +15,18 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 type UserMenuProps = {
   user: Session["user"];
 };
 
 export function UserMenu({ user }: UserMenuProps) {
+  const currentPath = usePathname();
+
+  let onDashboard = false;
+  if (currentPath.includes("/dashboard")) onDashboard = true;
+
   const [isPending, startTransition] = useTransition();
 
   const handleLogout = () => {
@@ -64,16 +70,18 @@ export function UserMenu({ user }: UserMenuProps) {
           <DropdownMenuSeparator />
 
           <DropdownMenuItem className="hover:bg-violet-eggplant-400" asChild>
-            <Link href="/profile">
-              Perfil
-            </Link>
+            <Link href="/profile">Perfil</Link>
           </DropdownMenuItem>
 
-          {user.role === "admin" && (
+          {user.role === "admin" && !onDashboard && (
             <DropdownMenuItem className="hover:bg-violet-eggplant-400" asChild>
-              <Link href="/dashboard">
-                Painel Administrador
-              </Link>
+              <Link href="/dashboard">Painel Administrador</Link>
+            </DropdownMenuItem>
+          )}
+
+          {user.role === "admin" && onDashboard && (
+            <DropdownMenuItem className="hover:bg-violet-eggplant-400" asChild>
+              <Link href="/home">Início</Link>
             </DropdownMenuItem>
           )}
 

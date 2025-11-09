@@ -9,7 +9,7 @@ type DashboardLayoutProps = {
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   return (
     <SidebarProvider
-      className="min-h-auto"
+      className="min-h-screen"
       style={
         {
           "--sidebar-width": "calc(var(--spacing) * 64)",

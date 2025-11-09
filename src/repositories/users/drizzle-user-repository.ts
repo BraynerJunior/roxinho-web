@@ -7,9 +7,8 @@ import { jobRolesTable } from "@/db/drizzle/schema/job-roles";
 import { eq, sql } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 
-
 export class DrizzleUserRepository implements UserRepository {
-   async findAll(
+  async findAll(
     page: number = 1,
     perPage: number = 10
   ): Promise<{
@@ -32,14 +31,16 @@ export class DrizzleUserRepository implements UserRepository {
     const data = await db
       .select({
         id: usersTable.id,
+        email: usersTable.email,
+        systemRole: usersTable.systemRole,
         name: profilesTable.name,
         role: jobRolesTable.name,
         birthdate: profilesTable.birthdate,
         avatarUrl: profilesTable.avatarUrl,
       })
       .from(usersTable)
-      .innerJoin(profilesTable, eq(profilesTable.userId, usersTable.id))
-      .innerJoin(jobRolesTable, eq(jobRolesTable.id, profilesTable.jobRoleId))
+      .leftJoin(profilesTable, eq(profilesTable.userId, usersTable.id))
+      .leftJoin(jobRolesTable, eq(jobRolesTable.id, profilesTable.jobRoleId))
       .limit(perPage)
       .offset(offset);
 
@@ -51,66 +52,68 @@ export class DrizzleUserRepository implements UserRepository {
     };
   }
 
-  async giveAccess(userId: string): Promise<{ success: boolean }> {
-    const user = await this.findById(userId)
+  async giveAccess(userId: number): Promise<{ success: boolean }> {
+    const user = await this.findById(userId);
 
-    let success = false
+    let success = false;
 
     if (!user) throw new Error(`Usuário não encontrado`);
 
-    const userNotAllowed = user.role === "not_allowed"
+    const userNotAllowed = user.systemRole === "not_allowed";
 
     if (userNotAllowed) {
       await db
         .update(usersTable)
         .set({ systemRole: "user" })
-        .where(eq(usersTable.id, Number(userId)))
+        .where(eq(usersTable.id, userId));
 
-      success = true
+      success = true;
     }
-    return { success }
+    return { success };
   }
 
-  async removeAccess(userId: string): Promise<{ success: boolean }> {
-    const user = await this.findById(userId)
+  async removeAccess(userId: number): Promise<{ success: boolean }> {
+    const user = await this.findById(userId);
 
-    let success = false
+    let success = false;
 
     if (!user) throw new Error(`Usuário não encontrado`);
 
-    const userAllowed = user.role !== "not_allowed"
+    const userAllowed = user.systemRole !== "not_allowed";
 
     if (userAllowed) {
       await db
         .update(usersTable)
         .set({ systemRole: "not_allowed" })
-        .where(eq(usersTable.id, Number(userId)))
+        .where(eq(usersTable.id, userId));
 
-      success = true
-
+      success = true;
     }
-    return { success }
-
+    return { success };
   }
 
-  async findById(id: string): Promise<UserModel> {
-    const results = await db
+  async findById(id: number): Promise<UserModel | null> {
+    const [user] = await db
       .select({
         id: usersTable.id,
+        email: usersTable.email,
+        systemRole: usersTable.systemRole,
         name: profilesTable.name,
         role: jobRolesTable.name,
         birthdate: profilesTable.birthdate,
         avatarUrl: profilesTable.avatarUrl,
+        createdAt: usersTable.createdAt,
+        bio: profilesTable.bio,
       })
       .from(usersTable)
-      .innerJoin(profilesTable, eq(profilesTable.userId, usersTable.id))
-      .innerJoin(jobRolesTable, eq(jobRolesTable.id, profilesTable.jobRoleId))
-      .where(eq(usersTable.id, Number(id)));
+      .leftJoin(profilesTable, eq(profilesTable.userId, usersTable.id))
+      .leftJoin(jobRolesTable, eq(jobRolesTable.id, profilesTable.jobRoleId))
+      .where(eq(usersTable.id, id))
+      .limit(1);
 
-    const user = results[0];
     if (!user) throw new Error(`Usuário não encontrado`);
 
-    return user;
+    return user ?? null;
   }
 
   async create(
