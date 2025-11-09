@@ -14,6 +14,9 @@ export default async function PrivateLayout({ children }: PrivateLayoutProps) {
   if (!session) {
     redirect("/login");
   }
+
+  if (session.user?.role === "not_allowed") redirect("/not-allowed");
+
   return (
     <SidebarLayout>
       {children} <UserMenu user={session.user} />

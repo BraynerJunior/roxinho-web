@@ -20,6 +20,19 @@ export function formatDatetimeNoHour(rawDate: string): string {
   });
 }
 
+export function formatDateMonthYear(
+  rawDate: Date | string | null | undefined
+): string {
+  if (!rawDate) throw new Error("Data inválida");
+
+  const date = new Date(rawDate!);
+   if (isNaN(date.getTime())) throw new Error("Data inválida");
+
+  return format(date, "MMMM 'de' yyyy", {
+    locale: ptBR,
+  });
+}
+
 export function formatDistanceToNow(rawDate: string): string {
   const date = new Date(rawDate);
 
