@@ -9,7 +9,6 @@ import {
   IconFileDescription,
   IconFileWord,
   IconHelp,
-  IconInnerShadowTop,
   IconReport,
   IconSearch,
   IconSettings,

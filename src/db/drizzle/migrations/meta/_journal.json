@@ -22,6 +22,13 @@
       "when": 1762623936030,
       "tag": "0002_freezing_pixie",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1762655499788,
+      "tag": "0003_illegal_molly_hayes",
+      "breakpoints": true
     }
   ]
 }

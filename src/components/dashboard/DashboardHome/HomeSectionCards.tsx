@@ -1,5 +1,4 @@
 import {
-  IconTrendingDown,
   IconTrendingUp,
   IconTrophy,
   IconClick
@@ -20,7 +19,7 @@ export function HomeSectionCards() {
   return (
     <>
     <SiteHeader title="Resumo" />
-      <div className=" [&_div]:text-violet-eggplant-900 grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
         <Card className="@container/card">
           <CardHeader>
             <CardDescription>De frente Com</CardDescription>
