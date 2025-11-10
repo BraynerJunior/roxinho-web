@@ -98,12 +98,9 @@ export class DrizzleUserRepository implements UserRepository {
         id: usersTable.id,
         email: usersTable.email,
         systemRole: usersTable.systemRole,
-        name: profilesTable.name,
         role: jobRolesTable.name,
         birthdate: profilesTable.birthdate,
-        avatarUrl: profilesTable.avatarUrl,
         createdAt: usersTable.createdAt,
-        bio: profilesTable.bio,
       })
       .from(usersTable)
       .leftJoin(profilesTable, eq(profilesTable.userId, usersTable.id))

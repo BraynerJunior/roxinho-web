@@ -60,7 +60,6 @@ export default async function ProfileHeader({
               </div>
             </div>
           </div>
-          <Button variant="default">Editar Perfil</Button>
         </div>
       </CardContent>
     </Card>

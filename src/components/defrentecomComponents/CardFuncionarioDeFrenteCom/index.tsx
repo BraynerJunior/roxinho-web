@@ -1,13 +1,14 @@
 import Image from "next/image";
-import clsx from "clsx";
-import { formatDistanceToNow } from "@/utils/format-datetime";
 import Link from "next/link";
+import { formatDistanceToNow } from "@/utils/format-datetime";
+import { Card, CardContent } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 export interface CardFuncionarioDeFrenteComProps {
-  id: string
+  id: string;
   name: string;
   role: string;
-  profilePictureUrl?: string | undefined;
+  profilePictureUrl?: string;
   createdAt: string;
 }
 
@@ -21,56 +22,36 @@ export default function CardFuncionarioDeFrenteCom({
   const [firstName, secondName] = name.split(" ");
 
   return (
-    <Link
-      href={`/defrentecom/${id}`}
-      className={clsx(
-        "relative flex items-center gap-4",
-        "bg-violet-200/60 backdrop-blur-md",
-        "border border-violet-200/20",
-        "rounded-xl p-4 pr-8 mx-8",
-        "shadow-lg shadow-violet-900/20",
-        "group",
-        "brightness-90 hover:brightness-100"
-      )}
-    >
-      {/* Foto do funcionário */}
-      <div
-        className={clsx(
-          "group-hover:scale-110 transition",
-          "absolute -left-6",
-          "w-20 h-20 rounded-full overflow-hidden",
-          "shadow-lg shadow-violet-900/40 border-2 border-violet-200/40"
+    <Link href={`/defrentecom/${id}`} className="block group">
+      <Card
+        className={cn(
+          "relative flex items-center gap-4 overflow-hidden",
+          "bg-gradient-to-br from-violet-100/70 to-violet-50/30",
+          "border border-violet-300/30 rounded-xl p-4 pl-20",
+          "shadow-md hover:shadow-violet-400/20 transition-all duration-300"
         )}
       >
-        <Image
-          src={profilePictureUrl}
-          alt="Foto do funcionário"
-          width={300}
-          height={300}
-          className="w-full h-full object-cover object-center"
-        />
-      </div>
-
-      {/* Texto */}
-      <div
-        className={clsx(
-          "pl-16 flex flex-col",
-          "group-hover:scale-110 transition",
-          "overflow-x-hidden"
-        )}
-      >
-        <div>
-          <h2 className="font-semibold text-violet-eggplant-900 text-sm text-nowrap">
-            {firstName} <span className="hidden sm:inline-block"> {secondName}</span>
-          </h2>
-          <p className="text-violet-eggplant-900/80 text-sm text-nowrap">
-            {role}
-          </p>
+        {/* Foto */}
+        <div className="absolute left-4 w-14 h-14 rounded-full overflow-hidden border-2 border-violet-300 shadow-sm group-hover:scale-110 transition-transform duration-300">
+          <Image
+            src={profilePictureUrl}
+            alt={`Foto de ${name}`}
+            width={56}
+            height={56}
+            className="object-cover w-full h-full"
+          />
         </div>
-        <p className="text-xs font-light text-violet-eggplant-900 text-nowrap">
-          {formatDistanceToNow(createdAt)}
-        </p>
-      </div>
+
+        <CardContent className="pl-4 text-sm flex flex-col justify-center">
+          <h2 className="font-semibold text-violet-950 leading-tight">
+            {firstName} <span className="hidden sm:inline">{secondName}</span>
+          </h2>
+          <p className="text-violet-900/80 text-xs">{role}</p>
+          <p className="text-violet-900/60 text-xs mt-1">
+            {formatDistanceToNow(createdAt)}
+          </p>
+        </CardContent>
+      </Card>
     </Link>
   );
 }
