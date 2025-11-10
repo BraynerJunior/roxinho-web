@@ -28,6 +28,9 @@ export async function updateProfile(data: ProfileSchema) {
     const profile = await updateUserProfile(userId, payload);
     revalidateTag(`profile-${userId}`);
     revalidateTag("users");
+    revalidateTag("interviews"); // fix: melhorar isso, talvez separar interviews de profiles para otimizar
+    revalidateTag("last-interview"); // fix: melhorar isso, talvez separar interviews de profiles para otimizar
+
 
     return {
       success: true,

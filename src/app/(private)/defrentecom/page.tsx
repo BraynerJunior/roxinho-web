@@ -37,7 +37,7 @@ export default async function DeFrenteComPage() {
     >
       <main
         className={clsx(
-          "flex items-center justify-start flex-col",
+          "flex items-center justify-evenly flex-col",
           "max-w-7xl",
           "my-8"
         )}
@@ -71,10 +71,18 @@ export default async function DeFrenteComPage() {
             )}
             style={{ overscrollBehavior: "contain" }}
           >
-            {(allInterviews.length <= 0 || !allInterviews) && (
-              <p className="self-center text-sm bg-violet-300 p-2 rounded-md text-violet-950">
-                Sem mais entrevistas no momento...
-              </p>
+            {(!allInterviews || allInterviews.length === 0) && (
+              <div
+                className={clsx(
+                  "flex items-center justify-center",
+                  "bg-stone-100",
+                  "border border-violet-300/30 rounded-xl",
+                  "shadow-md p-4 mx-8",
+                  "text-sm text-violet-900/80 font-medium"
+                )}
+              >
+                <p>Sem mais entrevistas no momento...</p>
+              </div>
             )}
 
             {allInterviews.map((interview: any) => {
