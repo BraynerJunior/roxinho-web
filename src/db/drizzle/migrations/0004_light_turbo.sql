@@ -1,0 +1,1 @@
+ALTER TABLE "profiles" ALTER COLUMN "job_role_id" DROP NOT NULL;

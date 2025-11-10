@@ -16,8 +16,7 @@ export const profilesTable = pgTable("profiles", {
     .references(() => usersTable.id, { onDelete: "cascade" })
     .notNull(),
   jobRoleId: integer("job_role_id")
-    .references(() => jobRolesTable.id)
-    .notNull(),
+    .references(() => jobRolesTable.id),
   name: varchar("name", { length: 255 }),
   bio: varchar("bio", { length: 1000 }),
   birthdate: date("birthdate"),
