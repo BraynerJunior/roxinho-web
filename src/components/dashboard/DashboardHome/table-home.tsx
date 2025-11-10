@@ -53,7 +53,7 @@ const roleToLabelMap: Record<string, JSX.Element> = {
   ),
   admin: (
     <div className="flex items-center gap-2 text-right">
-      Todos
+      Administrador
       <div className="rounded-full w-2 h-2 bg-blue-500 animate-pulse group-hover:bg-blue-800" />
     </div>
   ),
@@ -102,7 +102,9 @@ export const columns: ColumnDef<UserModel>[] = [
   {
     accessorKey: "name",
     header: "Nome",
-    cell: ({ row }) => <div className="capitalize">{row.getValue("name") || "-"}</div>,
+    cell: ({ row }) => (
+      <div className="capitalize">{row.getValue("name") || "-"}</div>
+    ),
     filterFn: "includesString",
   },
   {
@@ -116,12 +118,13 @@ export const columns: ColumnDef<UserModel>[] = [
     cell: ({ row }) => {
       const user = row.original;
       const currentRole = row.getValue("systemRole") as string;
-
+      
+      const isAdmin = currentRole === "admin";
       const isPending = currentRole === "not_allowed";
 
       return (
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+          <DropdownMenuTrigger disabled={isAdmin} asChild>
             <div className="cursor-pointer group">
               {getRoleLabel(currentRole) || "-"}
             </div>

@@ -19,7 +19,7 @@ export async function toggleUserAccess(
     revalidateTag("users");
     return { success: true };
   } catch (error) {
-    console.error("Erro ao alterar acesso do usuário: ", error);
+    console.error("❌ Erro ao alterar acesso do usuário: ", error);
     return { success: false };
   }
 }

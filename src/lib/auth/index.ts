@@ -20,7 +20,6 @@ const authConfig = NextAuth({
       },
       async authorize(credentials) {
         try {
-          console.log("🟣 Credenciais recebidas:", credentials);
 
           const parsed = loginSchema.safeParse(credentials);
           if (!parsed.success) {
@@ -35,7 +34,6 @@ const authConfig = NextAuth({
             .from(usersTable)
             .where(eq(usersTable.email, email));
 
-          console.log("🟢 Usuário encontrado:", user);
 
           if (!user) throw new Error("Usuário não encontrado");
 
@@ -45,7 +43,6 @@ const authConfig = NextAuth({
           }
 
           const valid = await bcrypt.compare(password, user.passwordHash);
-          console.log("🧩 Senha válida?", valid);
 
           if (!valid) throw new Error("Senha incorreta");
 
@@ -56,7 +53,6 @@ const authConfig = NextAuth({
             role: user.systemRole ?? "not_allowed",
           };
 
-          console.log("✅ Usuário autenticado:", finalUser);
           return finalUser;
         } catch (err) {
           console.error("🔥 Erro no authorize():", err);
