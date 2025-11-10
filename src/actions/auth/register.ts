@@ -18,7 +18,6 @@ export async function registerUser(data: RegisterSchema) {
   }
 
   revalidateTag("users");
-
   return {
     success: result.success,
     user: result.user,

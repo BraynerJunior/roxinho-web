@@ -80,7 +80,6 @@ export class DrizzleUserRepository implements UserRepository {
     if (!user) throw new Error(`Usuário não encontrado`);
 
     const userAllowed = user.systemRole !== "not_allowed";
-
     if (userAllowed) {
       await db
         .update(usersTable)
@@ -138,6 +137,10 @@ export class DrizzleUserRepository implements UserRepository {
           passwordHash: hashedPassword,
         })
         .returning({ id: usersTable.id, email: usersTable.email });
+
+      await db.insert(profilesTable).values({
+        userId: user.id,
+      });
 
       return { success: true, user };
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

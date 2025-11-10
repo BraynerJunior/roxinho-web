@@ -21,6 +21,7 @@ import {
   PasswordInputAdornmentToggle,
   PasswordInputInput,
 } from "@/components/ui/password-input";
+import { loginAction } from "@/actions";
 
 export function RegisterForm() {
   const form = useForm<RegisterSchema>({
@@ -31,12 +32,30 @@ export function RegisterForm() {
       confirmPassword: "",
     },
   });
-
+  
   const onSubmit = async (values: RegisterSchema) => {
+    const toastId = toast.loading("Registrando usuário...");
+
     const result = await registerUser(values);
-    if (result?.success) {
-      toast.success("Usuário registrado!");
+
+    if (!result?.success) {
+      toast.error(result?.message ?? "Erro ao registrar.", { id: toastId });
+      return;
     }
+
+    toast.success("Usuário registrado com sucesso!", { id: toastId });
+
+    const loginResult = await loginAction({
+      email: values.email,
+      password: values.password,
+    });
+
+    if (loginResult?.error) {
+      toast.error(loginResult.error.general[0]);
+      return;
+    }
+
+    toast.success("Bem-vindo(a)!", { id: toastId });
   };
 
   return (
@@ -68,10 +87,7 @@ export function RegisterForm() {
                 <FormLabel className="text-violet-950">Senha</FormLabel>
                 <FormControl>
                   <PasswordInput>
-                    <PasswordInputInput
-                      placeholder="Senha"
-                      {...field}
-                    />
+                    <PasswordInputInput placeholder="Senha" {...field} />
                     <PasswordInputAdornmentToggle />
                   </PasswordInput>
                 </FormControl>
