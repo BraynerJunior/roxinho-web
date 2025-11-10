@@ -1,8 +1,11 @@
-import { UserModel } from "../user/user-model";
-
 export type InterviewModel = {
-  id: number;
-  user?: Partial<UserModel>;
+  id?: number | null;
+  user: {
+    id?: number | null;
+    name: string | null;
+    avatarUrl: string | null | undefined;
+    role: string | null;
+  };
   createdAt: string;
   messages: {
     id: number;

@@ -1,5 +1,5 @@
 export interface CreateInterviewMessageInput {
-  interviewId: number;
+  interviewId: number | null | undefined;
   fromUser: boolean;
   content: string;
 }
