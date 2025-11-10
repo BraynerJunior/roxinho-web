@@ -1,5 +1,3 @@
-import { logoutAction } from "@/actions";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,10 +6,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { auth } from "@/lib/auth";
 import clsx from "clsx";
+import { redirect } from "next/navigation";
 import Image from "next/image";
+import { LogoutButton } from "@/components/logout-button";
 
 export default async function NotAllowedPage() {
+  const session = await auth();
+
+  if (session?.user?.role !== "not_allowed") redirect("/home");
+
   return (
     <div
       className={clsx(
@@ -45,11 +50,7 @@ export default async function NotAllowedPage() {
             <p>Aguarde até que um administrador libere o seu acesso!</p>
           </CardContent>
           <CardFooter>
-            <form action={logoutAction}>
-              <Button type="submit">
-                Sair
-              </Button>
-            </form>
+            <LogoutButton />
           </CardFooter>
         </Card>
       </div>
