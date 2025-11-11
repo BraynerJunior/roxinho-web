@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export const registerSchema = z
   .object({
+    name: z.string(),
     email: z.string().email("E-mail inválido"),
     password: z
       .string()
