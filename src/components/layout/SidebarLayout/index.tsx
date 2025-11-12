@@ -9,7 +9,7 @@ import React from "react";
 export function SidebarLayout({ children }: { children: React.ReactNode }) {
   const currentPath = usePathname();
 
-  const isDashboard = currentPath === "/dashboard";
+  const isDashboard = currentPath.includes("/dashboard");
   const isHome = currentPath === "/home";
 
   const show = !(isHome || isDashboard)

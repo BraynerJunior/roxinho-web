@@ -1,5 +1,5 @@
-import { DataTableHome } from "@/components/dashboard/DashboardHome/table-home";
-import { HomeSectionCards } from "@/components/dashboard/DashboardHome/HomeSectionCards";
+import { DataTableHome } from "@/components/admin-dashboard/DashboardHome/HomeTable/table-home";
+import { HomeSectionCards } from "@/components/admin-dashboard/DashboardHome/HomeCards/HomeSectionCards";
 
 import { getUsers } from "@/actions/dashboard/get-users-action";
 

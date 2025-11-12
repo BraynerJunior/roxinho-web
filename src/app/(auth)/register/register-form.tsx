@@ -27,12 +27,13 @@ export function RegisterForm() {
   const form = useForm<RegisterSchema>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
+      name: "",
       email: "",
       password: "",
       confirmPassword: "",
     },
   });
-  
+
   const onSubmit = async (values: RegisterSchema) => {
     const toastId = toast.loading("Registrando usuário...");
 
@@ -65,6 +66,19 @@ export function RegisterForm() {
           onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col gap-3"
         >
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-violet-950">Nome Completo</FormLabel>
+                <FormControl>
+                  <Input type="text" placeholder="Nome Completo" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
             name="email"

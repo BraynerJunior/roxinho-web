@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { findALlSummariesInterviews, findInterviewById } from "@/lib/interview/queries";
+import { findAllSummariesInterviews, findInterviewById } from "@/lib/interview/queries";
 import { InterviewModel } from "@/models/interview/interview-model";
 import { MessageContentProps } from "@/components/defrentecomComponents/MessageBar";
 import { DeFrenteComResizable } from "@/components/defrentecomComponents/DeFrenteComResizable";
@@ -12,10 +12,11 @@ export interface DeFrenteComSlugPageProps {
 export default async function DeFrenteComChatPage({
   params,
 }: DeFrenteComSlugPageProps) {
-  const interviews: InterviewSummary[] = await findALlSummariesInterviews();
+  const { data: interviews }: { data: InterviewSummary[] } =
+    await findAllSummariesInterviews(1, 100);
 
   const { id } = await params;
-  const interview: InterviewModel = await findInterviewById(id);
+  const interview: InterviewModel = await findInterviewById(parseInt(id));
   const { messages } = interview;
   return (
     <div
@@ -26,6 +27,7 @@ export default async function DeFrenteComChatPage({
       )}
     >
       <DeFrenteComResizable
+        key={interview.id}
         interviews={interviews}
         interview={interview}
         messages={messages as MessageContentProps[]}

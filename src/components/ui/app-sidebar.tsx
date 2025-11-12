@@ -45,42 +45,42 @@ const data = {
   navMain: [
   {
     title: "Home",
-    url: "/home",
+    url: "/dashboard",
     icon: Home,
   },
   {
-    title: "Roxinho Web",
-    url: "/about-us",
+    title: "Sobre",
+    url: "/dashboard/about-us",
     icon: HiOutlineUserGroup,
   },
   {
     title: "Roxinho News",
-    url: "/roxinho-news",
+    url: "/dashboard/roxinho-news",
     icon: ImNewspaper,
   },
   {
     title: "Campanha News",
-    url: "/campanha-news",
+    url: "/dashboard/campanha-news",
     icon: RiMegaphoneLine,
   },
   {
     title: "Nossos Resultados",
-    url: "/our-results",
+    url: "/dashboard/our-results",
     icon: BiMedal,
   },
   {
     title: "Verbatins Month",
-    url: "/verbatins-month",
+    url: "/dashboard/verbatins-month",
     icon: RiSpeakLine,
   },
   {
     title: "Gaming",
-    url: "/gaming",
+    url: "/dashboard/gaming",
     icon: BsController,
   },
   {
     title: "DeFrenteCom",
-    url: "/defrentecom",
+    url: "/dashboard/defrentecom",
     icon: GoPerson,
   },
   ],

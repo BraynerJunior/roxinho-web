@@ -10,8 +10,8 @@ export async function registerUser(data: RegisterSchema) {
     return { success: false, error: "Dados inválidos" };
   }
 
-  const { email, password } = parsed.data;
-  const result = await userRepository.create({ email, password });
+  const { name, email, password } = parsed.data;
+  const result = await userRepository.create({ name, email, password });
 
   if (!result.success) {
     return { success: false, message: result.message };
