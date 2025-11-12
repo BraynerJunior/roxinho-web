@@ -1,12 +1,36 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import CardFuncionarioDeFrenteCom from "@/components/defrentecomComponents/CardFuncionarioDeFrenteCom";
 import DestaqueDeFrenteCom from "@/components/defrentecomComponents/Destaque";
-import { findALlSummariesInterviews } from "@/lib/interview/queries";
+import { PaginationControls } from "@/components/defrentecomComponents/PaginationControls";
+import { findAllSummariesInterviews } from "@/lib/interview/queries";
 
 import clsx from "clsx";
 
-export default async function DeFrenteComPage() {
-  const interviews = await findALlSummariesInterviews();
+interface DeFrenteComPageProps {
+  searchParams: {
+    page?: string;
+    perPage?: string;
+  };
+}
+
+export default async function DeFrenteComPage({
+  searchParams,
+}: DeFrenteComPageProps) {
+  // `searchParams` can be a thenable in some Next.js runtime scenarios.
+  // Await it before accessing properties to avoid the runtime error:
+  // "searchParams should be awaited before using its properties".
+  const params = (await (searchParams as unknown as Promise<
+    DeFrenteComPageProps["searchParams"]
+  >)) ?? searchParams;
+
+  const page = Number(params.page ?? 1);
+  const perPage = Number(params.perPage ?? 6);
+
+  const {
+    data: interviews,
+    totalPages,
+    currentPage,
+  } = await findAllSummariesInterviews(page, perPage);
 
   if (!interviews || interviews.length === 0) {
     return (
@@ -25,8 +49,9 @@ export default async function DeFrenteComPage() {
     );
   }
 
+  
   const [lastInterview, ...allInterviews] = interviews;
-
+  console.log({allInterviews})
   return (
     <div
       className={clsx(
@@ -64,9 +89,9 @@ export default async function DeFrenteComPage() {
               "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10",
               "p-8 mt-4 mx-4",
               "rounded-3xl",
-              "bg-gradient-to-tr from-violet-600 to-violet-300",
+              "bg-linear-to-tr from-violet-600 to-violet-300",
               "overflow-y-auto scrollbar-hide",
-              "max-h-[240px]",
+              "max-h-60",
               "max-w-sm sm:min-w-md md:max-w-6xl"
             )}
             style={{ overscrollBehavior: "contain" }}
@@ -98,6 +123,12 @@ export default async function DeFrenteComPage() {
               );
             })}
           </div>
+          <PaginationControls
+            baseUrl="/defrentecom"
+            currentPage={currentPage}
+            perPage={perPage}
+            totalPages={totalPages}
+          />
         </div>
       </main>
     </div>

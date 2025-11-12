@@ -21,4 +21,14 @@ export interface UserRepository {
     | { success: true; user: { id: number; email: string } }
     | { success: false; message: string }
   >;
+  findByName(
+    name: string,
+    page: number,
+    perPage: number
+  ): Promise<{
+    data: UserModel[];
+    totalItems: number;
+    totalPages: number;
+    currentPage: number;
+  }>;
 }

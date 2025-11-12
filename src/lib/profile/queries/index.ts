@@ -1,23 +1,27 @@
 import { profileRepository } from "@/repositories/profile";
 import { UpdateProfileInput } from "@/repositories/profile/profile-repository";
-import { unstable_cache } from "next/cache";
-import { cache } from "react";
+import { revalidatePath, revalidateTag, unstable_cache } from "next/cache";
 
-export const findProfileByUserId = cache((userId: number) => {
-  return unstable_cache(
+export async function findProfileByUserId(userId: number) {
+  const cachedFn = unstable_cache(
     async (userId: number) => {
       return profileRepository.findByUserId(userId);
     },
     [`profile-${userId}`],
-    {
-      tags: [`profile-${userId}`],
-    }
-  )(userId);
-});
+    { tags: [`profile-${userId}`] }
+  );
 
-export const updateUserProfile = cache(
-  async (userId: number, data: UpdateProfileInput) => {
-    const updated = profileRepository.updateByUserId(userId, data);
-    return updated;
-  }
-);
+  return cachedFn(userId);
+}
+
+export async function updateUserProfile(
+  userId: number,
+  data: UpdateProfileInput
+) {
+  const updated = await profileRepository.updateByUserId(userId, data);
+
+  revalidateTag(`profile-${userId}`);
+  revalidatePath("/(private)/(admin)/dashboard/perfis");
+
+  return updated;
+}

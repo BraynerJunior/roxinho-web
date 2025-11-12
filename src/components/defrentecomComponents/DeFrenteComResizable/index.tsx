@@ -41,7 +41,7 @@ export function DeFrenteComResizable({
             <CardFuncionarioDeFrenteCom
               id={interviewItem.id}
               profilePictureUrl={interviewItem.avatarUrl}
-              key={interviewItem.userId}
+              key={interviewItem.id}
               name={interviewItem.username}
               role={interviewItem.jobRole}
               createdAt={interviewItem.createdAt}
@@ -66,12 +66,12 @@ export function DeFrenteComResizable({
         >
           Entrevista do dia {formatDatetimeNoHour(interview.createdAt)}
         </h2>
-        {messages.map((message) => (
+        {messages.map((message, idx) => (
           <MessageBar
             profilePictureUrl={interview.user.profilePictureUrl}
             name={interview.user.name}
             message={message}
-            key={message.id}
+            key={message.id ?? `msg-${idx}`}
           />
         ))}
       </div>

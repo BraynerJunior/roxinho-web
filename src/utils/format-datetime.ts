@@ -26,9 +26,18 @@ export function formatDateMonthYear(
   if (!rawDate) throw new Error("Data inválida");
 
   const date = new Date(rawDate!);
-   if (isNaN(date.getTime())) throw new Error("Data inválida");
+  if (isNaN(date.getTime())) throw new Error("Data inválida");
 
   return format(date, "MMMM 'de' yyyy", {
+    locale: ptBR,
+  });
+}
+
+export function formatDateExtensive(rawDate: string): string {
+  const date = new Date(rawDate!);
+  if (isNaN(date.getTime())) throw new Error("Data inválida");
+
+  return format(date, "dd 'de' MMMM 'de' yyyy", {
     locale: ptBR,
   });
 }

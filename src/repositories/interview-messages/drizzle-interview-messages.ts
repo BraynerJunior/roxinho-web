@@ -4,8 +4,12 @@ import { interviewMessagesTable } from "@/db/drizzle/schema";
 import { InterviewMessageModel } from "@/models/interview-messages/interview-message-model";
 import { InterviewMessageRepository } from "./interview-messages-repository";
 
-export class DrizzleInterviewMessageRepository implements InterviewMessageRepository {
-  async findByInterviewId(interviewId: number): Promise<InterviewMessageModel[]> {
+export class DrizzleInterviewMessageRepository
+  implements InterviewMessageRepository
+{
+  async findByInterviewId(
+    interviewId: number
+  ): Promise<InterviewMessageModel[]> {
     const results = await db
       .select({
         id: interviewMessagesTable.id,
@@ -18,6 +22,8 @@ export class DrizzleInterviewMessageRepository implements InterviewMessageReposi
       .where(eq(interviewMessagesTable.interviewId, interviewId))
       .orderBy(interviewMessagesTable.id);
 
+
+    console.log("raw query result: ", results);
     return results.map((msg) => ({
       id: msg.id,
       interviewId: msg.interviewId,
@@ -27,7 +33,25 @@ export class DrizzleInterviewMessageRepository implements InterviewMessageReposi
     }));
   }
 
-  async create(data: Omit<InterviewMessageModel, "id" | "createdAt">): Promise<InterviewMessageModel> {
+  async delete(id: number): Promise<void> {
+    await db
+      .delete(interviewMessagesTable)
+      .where(eq(interviewMessagesTable.id, id));
+  }
+
+  async update(id: number, data: { fromUser: boolean; content: string }): Promise<void> {
+    await db
+      .update(interviewMessagesTable)
+      .set({
+        fromUser: data.fromUser,
+        content: data.content,
+      })
+      .where(eq(interviewMessagesTable.id, id));
+  }
+
+  async create(
+    data: Omit<InterviewMessageModel, "id" | "createdAt">
+  ): Promise<InterviewMessageModel> {
     const [newMessage] = await db
       .insert(interviewMessagesTable)
       .values({

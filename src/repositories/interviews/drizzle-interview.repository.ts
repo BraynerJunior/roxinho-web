@@ -7,28 +7,28 @@ import {
   profilesTable,
   usersTable,
 } from "@/db/drizzle/schema";
-import { desc, eq } from "drizzle-orm";
+import { desc, eq, sql } from "drizzle-orm";
 import { InterviewSummary } from "@/models/interview/interview-summary-model";
-import { DrizzleInterviewMessageRepository } from "../interview-messages/drizzle-interview-messages";
+import { interviewMessageRepository } from "../interview-messages/index";
 import { CreateInterviewInput } from "@/models/interview/dto/create-interview-input";
+import { PaginatedInterviews } from "@/models/interview/paginated-interviews";
 
 export class DrizzleInterviewRepository implements InterviewRepository {
-  private messagesRepo = new DrizzleInterviewMessageRepository();
-
   async findLatest(): Promise<InterviewSummary | null> {
     const [result] = await db
       .select({
         interviewId: interviewsTable.id,
         userId: usersTable.id,
+        email: usersTable.email,
         username: profilesTable.name,
         avatarUrl: profilesTable.avatarUrl,
         jobRole: jobRolesTable.name,
         createdAt: interviewsTable.createdAt,
       })
       .from(interviewsTable)
-      .innerJoin(usersTable, eq(usersTable.id, interviewsTable.userId))
-      .innerJoin(profilesTable, eq(profilesTable.userId, usersTable.id))
-      .innerJoin(jobRolesTable, eq(jobRolesTable.id, profilesTable.jobRoleId))
+      .leftJoin(usersTable, eq(usersTable.id, interviewsTable.userId))
+      .leftJoin(profilesTable, eq(profilesTable.userId, usersTable.id))
+      .leftJoin(jobRolesTable, eq(jobRolesTable.id, profilesTable.jobRoleId))
       .orderBy(desc(interviewsTable.createdAt))
       .limit(1);
 
@@ -36,6 +36,7 @@ export class DrizzleInterviewRepository implements InterviewRepository {
 
     return {
       id: result.interviewId,
+      email: result.email ?? "",
       userId: result.userId,
       username: result.username ?? "Usuário sem nome",
       avatarUrl: result.avatarUrl ?? undefined,
@@ -44,33 +45,60 @@ export class DrizzleInterviewRepository implements InterviewRepository {
     };
   }
 
-  async findAllSummaries(): Promise<InterviewSummary[]> {
+  async findAllSummaries(
+    page: number = 1,
+    perPage: number = 10
+  ): Promise<PaginatedInterviews> {
+    const offset = (page - 1) * perPage;
+
+    const [countResult] = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(interviewsTable);
+
+    const totalItems = Number(countResult.count);
+    const totalPages = Math.ceil(totalItems / perPage);
+
     const results = await db
       .select({
         id: interviewsTable.id,
         userId: usersTable.id,
+        email: usersTable.email,
         username: profilesTable.name,
         avatarUrl: profilesTable.avatarUrl,
         jobRole: jobRolesTable.name,
         createdAt: interviewsTable.createdAt,
       })
       .from(interviewsTable)
-      .innerJoin(usersTable, eq(usersTable.id, interviewsTable.userId))
-      .innerJoin(profilesTable, eq(profilesTable.userId, usersTable.id))
-      .innerJoin(jobRolesTable, eq(jobRolesTable.id, profilesTable.jobRoleId))
-      .orderBy(desc(interviewsTable.createdAt));
+      .leftJoin(usersTable, eq(usersTable.id, interviewsTable.userId))
+      .leftJoin(profilesTable, eq(profilesTable.userId, usersTable.id))
+      .leftJoin(jobRolesTable, eq(jobRolesTable.id, profilesTable.jobRoleId))
+      .orderBy(desc(interviewsTable.createdAt))
+      .limit(perPage)
+      .offset(offset);
 
-    return results.map((result) => ({
+    const data = results.map((result) => ({
       id: result.id,
+      email: result.email ?? "",
       userId: result.userId,
       username: result.username ?? "Usuário sem nome",
       avatarUrl: result.avatarUrl ?? undefined,
       jobRole: result.jobRole ?? "Sem cargo",
       createdAt: result.createdAt.toISOString(),
     }));
+
+    console.log(
+      `[DrizzleInterviewRepository] findAllSummaries -> totalItems: ${totalItems}, returned: ${data.length}`
+    );
+
+    return {
+      data,
+      totalItems,
+      totalPages,
+      currentPage: page,
+    };
   }
 
-  async findById(id: string): Promise<InterviewModel> {
+  async findById(id: number): Promise<InterviewModel> {
     const [interview] = await db
       .select({
         id: interviewsTable.id,
@@ -81,15 +109,20 @@ export class DrizzleInterviewRepository implements InterviewRepository {
         userJobRole: jobRolesTable.name,
       })
       .from(interviewsTable)
-      .innerJoin(usersTable, eq(usersTable.id, interviewsTable.userId))
-      .innerJoin(profilesTable, eq(profilesTable.userId, usersTable.id))
-      .innerJoin(jobRolesTable, eq(jobRolesTable.id, profilesTable.jobRoleId))
+      .leftJoin(usersTable, eq(usersTable.id, interviewsTable.userId))
+      .leftJoin(profilesTable, eq(profilesTable.userId, usersTable.id))
+      .leftJoin(jobRolesTable, eq(jobRolesTable.id, profilesTable.jobRoleId))
       .where(eq(interviewsTable.id, Number(id)));
 
     if (!interview) throw new Error("Entrevista não encotrada!");
 
-    // Busca as mensagens separadamente
-    const messages = await this.messagesRepo.findByInterviewId(interview.id);
+    console.log(
+      "[DrizzleInterviewRepository] fetching messages for interview id:",
+      interview.id
+    );
+    const messages = await interviewMessageRepository.findByInterviewId(
+      interview.id
+    );
 
     return {
       id: interview.id,
@@ -104,10 +137,21 @@ export class DrizzleInterviewRepository implements InterviewRepository {
     };
   }
 
+  async update(
+    id: number,
+    data: Partial<{ userId: number | null }>
+  ): Promise<void> {
+    await db
+      .update(interviewsTable)
+      .set({
+        userId: data.userId ?? null,
+      })
+      .where(eq(interviewsTable.id, id));
+  }
+
   async create(data: CreateInterviewInput): Promise<InterviewModel> {
     const { userId, guestName, guestEmail, guestJobRoleId } = data;
 
-    // 🔹 Cria a entrevista no banco
     const [newInterview] = await db
       .insert(interviewsTable)
       .values({
@@ -124,11 +168,9 @@ export class DrizzleInterviewRepository implements InterviewRepository {
         guestJobRoleId: interviewsTable.guestJobRoleId,
       });
 
-    // 🔹 Monta dados do usuário (se houver)
     let user: InterviewModel["user"];
 
     if (newInterview.userId) {
-      // Usuário logado
       const [profile] = await db
         .select({
           name: profilesTable.name,
@@ -146,21 +188,20 @@ export class DrizzleInterviewRepository implements InterviewRepository {
         role: profile?.jobRole ?? "Sem cargo",
       };
     } else {
-      // Convidado
+
       user = {
-        id: undefined as unknown as number, // compatibilidade com tipagem existente
+        id: undefined as unknown as number,
         name: guestName ?? "Convidado",
         avatarUrl: undefined,
         role: guestJobRoleId ? `Cargo ID ${guestJobRoleId}` : "Sem cargo",
       };
     }
 
-    // 🔹 Retorna o modelo completo da entrevista
     return {
       id: newInterview.id,
       createdAt: newInterview.createdAt.toISOString(),
       user,
-      messages: [], // recém-criada, sem mensagens ainda
+      messages: [],
     };
   }
 }

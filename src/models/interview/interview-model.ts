@@ -1,5 +1,5 @@
 export type InterviewModel = {
-  id?: number | null;
+  id?: number;
   user: {
     id?: number | null;
     name: string | null;

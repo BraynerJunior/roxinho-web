@@ -4,7 +4,7 @@ import { db } from "@/db/drizzle";
 import { usersTable } from "@/db/drizzle/schema/users";
 import { profilesTable } from "@/db/drizzle/schema/profiles";
 import { jobRolesTable } from "@/db/drizzle/schema/job-roles";
-import { eq, sql } from "drizzle-orm";
+import { eq, ilike, sql } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 
 export class DrizzleUserRepository implements UserRepository {
@@ -96,10 +96,12 @@ export class DrizzleUserRepository implements UserRepository {
       .select({
         id: usersTable.id,
         email: usersTable.email,
+        name: profilesTable.name,
         systemRole: usersTable.systemRole,
         role: jobRolesTable.name,
         birthdate: profilesTable.birthdate,
         createdAt: usersTable.createdAt,
+        avatarUrl: profilesTable.avatarUrl,
       })
       .from(usersTable)
       .leftJoin(profilesTable, eq(profilesTable.userId, usersTable.id))
@@ -107,9 +109,55 @@ export class DrizzleUserRepository implements UserRepository {
       .where(eq(usersTable.id, id))
       .limit(1);
 
-    if (!user) throw new Error(`Usuário não encontrado`);
-
     return user ?? null;
+  }
+
+  async findByName(
+    name: string,
+    page: number = 1,
+    perPage: number = 10
+  ): Promise<{
+    data: UserModel[];
+    totalItems: number;
+    totalPages: number;
+    currentPage: number;
+  }> {
+    const offset = (page - 1) * perPage;
+
+    // Conta o total de usuários que batem com o nome
+    const [countResult] = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(usersTable)
+      .leftJoin(profilesTable, eq(profilesTable.userId, usersTable.id))
+      .where(ilike(profilesTable.name, `%${name}%`));
+
+    const totalItems = Number(countResult.count);
+    const totalPages = Math.ceil(totalItems / perPage);
+
+    // Busca paginada
+    const data = await db
+      .select({
+        id: usersTable.id,
+        email: usersTable.email,
+        systemRole: usersTable.systemRole,
+        name: profilesTable.name,
+        role: jobRolesTable.name,
+        birthdate: profilesTable.birthdate,
+        avatarUrl: profilesTable.avatarUrl,
+      })
+      .from(usersTable)
+      .leftJoin(profilesTable, eq(profilesTable.userId, usersTable.id))
+      .leftJoin(jobRolesTable, eq(jobRolesTable.id, profilesTable.jobRoleId))
+      .where(ilike(profilesTable.name, `%${name}%`))
+      .limit(perPage)
+      .offset(offset);
+
+    return {
+      data,
+      totalItems,
+      totalPages,
+      currentPage: page,
+    };
   }
 
   async create(

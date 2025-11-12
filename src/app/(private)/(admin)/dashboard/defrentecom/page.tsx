@@ -1,9 +1,8 @@
-import { DataTableHome } from "@/components/admin-dashboard/DashboardHome/HomeTable/table-home";
-import { HomeSectionCards } from "@/components/admin-dashboard/DashboardHome/HomeCards/HomeSectionCards";
+import { SiteHeader } from "@/components/ui/site-header";
+import { findAllSummariesInterviews } from "@/lib/interview/queries";
+import { InterviewManagementClient } from "@/components/admin-dashboard/DashboardDeFrenteCom/InterviewManagementClient";
 
-import { getUsers } from "@/actions/dashboard/get-users-action";
-
-export default async function Page({
+export default async function DeFrenteComAdminDashboard({
   searchParams,
 }: {
   searchParams?: Promise<{ page?: string; perPage?: string }>;
@@ -12,20 +11,17 @@ export default async function Page({
   const page = Number(params?.page || 1);
   const perPage = Number(params?.perPage || 10);
 
-  const { data, currentPage, totalItems, totalPages } = await getUsers(
-    page,
-    perPage
-  );
+  const { data, currentPage, totalItems, totalPages } =
+    await findAllSummariesInterviews(page, perPage);
 
   return (
     <div className="flex flex-1 flex-col">
       <div className="@container/main flex flex-1 flex-col gap-2">
         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-          <HomeSectionCards />
+          <SiteHeader title="De Frente Com" />
           <div className="max-w-full px-2 mt-8">
-            <h1 className="text-xl text-center font-semibold">Usuários Cadastrados</h1>
-            <DataTableHome
-              data={data}
+            <InterviewManagementClient
+              initialData={data}
               totalPages={totalPages}
               totalItems={totalItems}
               currentPage={currentPage}
