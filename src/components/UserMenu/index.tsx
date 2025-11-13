@@ -27,6 +27,7 @@ export function UserMenu({ user }: UserMenuProps) {
   let onDashboard = false;
   if (currentPath.includes("/dashboard")) onDashboard = true;
 
+
   const [isPending, startTransition] = useTransition();
 
   const handleLogout = () => {
@@ -35,12 +36,15 @@ export function UserMenu({ user }: UserMenuProps) {
     });
   };
 
+  if (onDashboard) return;
+
   if (!user) return;
   const fallbackLetter =
     user.name?.charAt(0).toUpperCase() ||
     user.email?.charAt(0).toUpperCase() ||
     "?";
 
+  console.log("menu da direita: ", { user });
   return (
     <div className="fixed bottom-4 right-4 z-50">
       <DropdownMenu>

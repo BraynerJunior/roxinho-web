@@ -1,6 +1,9 @@
 "use server";
 
-import { registerSchema, RegisterSchema } from "@/lib/validations/auth-schemas";
+import {
+  registerSchema,
+  RegisterSchema,
+} from "@/lib/validations/auth-schemas";
 import { userRepository } from "@/repositories/users";
 import { revalidateTag } from "next/cache";
 
@@ -10,9 +13,10 @@ export async function registerUser(data: RegisterSchema) {
     return { success: false, error: "Dados inválidos" };
   }
 
-  const { name, jobRoleId, email, password } = parsed.data;
+  const { firstName, lastName, jobRoleId, email, password } = parsed.data;
   const result = await userRepository.create({
-    name,
+    firstName,
+    lastName,
     jobRoleId,
     email,
     password,

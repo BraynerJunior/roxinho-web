@@ -92,7 +92,7 @@ export function AppSidebar() {
                       </TooltipTrigger>
                       <TooltipContent className="bg-violet-eggplant-400 rounded-md px-2">
                         {item.title}
-                        <TooltipArrow className="fill z-50 size-2.5 translate-y-[calc(-50%_-_2px)] rotate-45 rounded-[2px] bg-violet-eggplant-400 fill-violet-eggplant-400" />
+                        <TooltipArrow className="fill z-50 size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-[2px] bg-violet-eggplant-400 fill-violet-eggplant-400" />
                       </TooltipContent>
                     </Tooltip>
                   </SidebarMenuItem>

@@ -6,6 +6,7 @@ import { usersTable } from "@/db/drizzle/schema/users";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 import { loginSchema } from "@/lib/validations/auth-schemas";
+import { profilesTable } from "@/db/drizzle/schema";
 
 const authConfig = NextAuth({
   secret: process.env.AUTH_SECRET,
@@ -30,8 +31,17 @@ const authConfig = NextAuth({
           const { email, password } = parsed.data;
 
           const [user] = await db
-            .select()
+            .select(
+              {
+                id:  usersTable.id,
+                email: usersTable.email,
+                systemRole: usersTable.systemRole,
+                name: profilesTable.name,
+                passwordHash: usersTable.passwordHash
+              }
+            )
             .from(usersTable)
+            .leftJoin(profilesTable, eq(usersTable.id, profilesTable.userId))
             .where(eq(usersTable.email, email));
 
 
@@ -49,7 +59,7 @@ const authConfig = NextAuth({
           const finalUser = {
             id: user.id.toString(),
             email: user.email,
-            name: user.email,
+            name: user.name,
             role: user.systemRole ?? "not_allowed",
           };
 

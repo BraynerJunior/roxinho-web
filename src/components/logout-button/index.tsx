@@ -11,6 +11,7 @@ export function LogoutButton() {
     <Button
       onClick={() => startTransition(() => logoutAction())}
       disabled={isPending}
+      className="bg-purple-600 hover:bg-purple-700"
     >
       {isPending ? "Saindo..." : "Sair"}
     </Button>

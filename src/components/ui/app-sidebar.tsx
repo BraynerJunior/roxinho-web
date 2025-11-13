@@ -29,60 +29,56 @@ import {
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem
+  SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { NavDocuments } from "@/components/ui/nav-documents";
+// import { NavDocuments } from "@/components/ui/nav-documents";
 import { NavMain } from "@/components/ui/nav-main";
-import { NavSecondary } from "@/components/ui/nav-secondary";
+// import { NavSecondary } from "@/components/ui/nav-secondary";
 import { NavUser } from "@/components/ui/nav-user";
+import type { Session } from "next-auth";
 
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg"
-  },
   navMain: [
-  {
-    title: "Home",
-    url: "/dashboard",
-    icon: Home,
-  },
-  {
-    title: "Sobre",
-    url: "/dashboard/about-us",
-    icon: HiOutlineUserGroup,
-  },
-  {
-    title: "Roxinho News",
-    url: "/dashboard/roxinho-news",
-    icon: ImNewspaper,
-  },
-  {
-    title: "Campanha News",
-    url: "/dashboard/campanha-news",
-    icon: RiMegaphoneLine,
-  },
-  {
-    title: "Nossos Resultados",
-    url: "/dashboard/our-results",
-    icon: BiMedal,
-  },
-  {
-    title: "Verbatins Month",
-    url: "/dashboard/verbatins-month",
-    icon: RiSpeakLine,
-  },
-  {
-    title: "Gaming",
-    url: "/dashboard/gaming",
-    icon: BsController,
-  },
-  {
-    title: "DeFrenteCom",
-    url: "/dashboard/defrentecom",
-    icon: GoPerson,
-  },
+    {
+      title: "Home",
+      url: "/dashboard",
+      icon: Home,
+    },
+    {
+      title: "Sobre",
+      url: "/dashboard/about-us",
+      icon: HiOutlineUserGroup,
+    },
+    {
+      title: "Roxinho News",
+      url: "/dashboard/roxinho-news",
+      icon: ImNewspaper,
+    },
+    {
+      title: "Campanha News",
+      url: "/dashboard/campanha-news",
+      icon: RiMegaphoneLine,
+    },
+    {
+      title: "Nossos Resultados",
+      url: "/dashboard/our-results",
+      icon: BiMedal,
+    },
+    {
+      title: "Verbatins Month",
+      url: "/dashboard/verbatins-month",
+      icon: RiSpeakLine,
+    },
+    {
+      title: "Gaming",
+      url: "/dashboard/gaming",
+      icon: BsController,
+    },
+    {
+      title: "DeFrenteCom",
+      url: "/dashboard/defrentecom",
+      icon: GoPerson,
+    },
   ],
   navClouds: [
     {
@@ -93,13 +89,13 @@ const data = {
       items: [
         {
           title: "Active Proposals",
-          url: "#"
+          url: "#",
         },
         {
           title: "Archived",
-          url: "#"
-        }
-      ]
+          url: "#",
+        },
+      ],
     },
     {
       title: "Proposal",
@@ -108,13 +104,13 @@ const data = {
       items: [
         {
           title: "Active Proposals",
-          url: "#"
+          url: "#",
         },
         {
           title: "Archived",
-          url: "#"
-        }
-      ]
+          url: "#",
+        },
+      ],
     },
     {
       title: "Prompts",
@@ -123,58 +119,65 @@ const data = {
       items: [
         {
           title: "Active Proposals",
-          url: "#"
+          url: "#",
         },
         {
           title: "Archived",
-          url: "#"
-        }
-      ]
-    }
+          url: "#",
+        },
+      ],
+    },
   ],
   navSecondary: [
     {
       title: "Settings",
       url: "#",
-      icon: IconSettings
+      icon: IconSettings,
     },
     {
       title: "Get Help",
       url: "#",
-      icon: IconHelp
+      icon: IconHelp,
     },
     {
       title: "Search",
       url: "#",
-      icon: IconSearch
-    }
+      icon: IconSearch,
+    },
   ],
   documents: [
     {
       name: "Data Library",
       url: "#",
-      icon: IconDatabase
+      icon: IconDatabase,
     },
     {
       name: "Reports",
       url: "#",
-      icon: IconReport
+      icon: IconReport,
     },
     {
       name: "Word Assistant",
       url: "#",
-      icon: IconFileWord
-    }
-  ]
+      icon: IconFileWord,
+    },
+  ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
+  user: Session["user"];
+};
+
+export function AppSidebar({ user, ...props }: AppSidebarProps) {
   return (
     <Sidebar collapsible="none" className="h-auto border-r" {...props}>
       <SidebarHeader className="border-b">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:p-1.5!">
+            <SidebarMenuButton
+              asChild
+              className="data-[slot=sidebar-menu-button]:p-1.5!"
+            >
               <Link href="#">
                 <span className="text-base font-semibold">Roxinho Web</span>
               </Link>
@@ -184,11 +187,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        {/* <NavDocuments items={data.documents} /> */}
+        {/* <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={user} />
       </SidebarFooter>
     </Sidebar>
   );

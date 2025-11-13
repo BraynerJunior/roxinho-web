@@ -44,11 +44,12 @@ export function RegisterForm() {
   const form = useForm<RegisterSchema>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      name: "",
-      jobRoleId: "",
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
       confirmPassword: "",
+      jobRoleId: "",
     },
   });
 
@@ -84,19 +85,35 @@ export function RegisterForm() {
           onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col gap-3"
         >
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-violet-950">Nome Completo</FormLabel>
-                <FormControl>
-                  <Input type="text" placeholder="Nome Completo" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <div className="flex flex-row gap-2">
+            <FormField
+              control={form.control}
+              name="firstName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-violet-950">Nome</FormLabel>
+                  <FormControl>
+                    <Input type="text" placeholder="Nome" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="lastName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-violet-950">Sobrenome</FormLabel>
+                  <FormControl>
+                    <Input type="text" placeholder="Sobrenome" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
           <FormField
             control={form.control}
             name="email"

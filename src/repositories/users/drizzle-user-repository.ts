@@ -203,7 +203,7 @@ export class DrizzleUserRepository implements UserRepository {
 
       await db.insert(profilesTable).values({
         userId: user.id,
-        name: data.name,
+        name: `${data.firstName} ${data.lastName}`,
         jobRoleId: Number(data.jobRoleId),
       });
 
