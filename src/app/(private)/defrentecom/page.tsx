@@ -78,20 +78,20 @@ export default async function DeFrenteComPage({
             className={clsx(
               "bg-violet-eggplant-700 text-white",
               "p-2 rounded-xl ml-4",
-              "w-fit"
+              "min-w-sm sm:w-fit"
             )}
           >
             Veja também os anteriores
           </h2>
           <div
             className={clsx(
-              "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10",
+              "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10",
               "p-8 mt-4 mx-4",
               "rounded-3xl",
               "bg-linear-to-tr from-violet-600 to-violet-300",
               "overflow-y-auto scrollbar-hide",
               "max-h-100",
-              "max-w-sm sm:min-w-md md:max-w-6xl"
+              "sm:max-w-xl md:max-w-6xl"
             )}
             style={{ overscrollBehavior: "contain" }}
           >

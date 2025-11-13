@@ -28,13 +28,13 @@ export default function DestaqueDeFrenteCom({
         "bg-stone-100",
         "border border-violet-300/30",
         "shadow-lg hover:shadow-violet-700/20 transition-shadow duration-300",
-        "rounded-3xl p-6 mx-auto max-w-4xl"
+        "max-w-sm sm:max-w-lg rounded-3xl p-6 mx-auto md:max-w-2xl lg:max-w-4xl"
       )}
     >
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-center">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
         <Link
           href={`/defrentecom/${id}`}
-          className="mx-auto md:col-span-2 flex justify-center"
+          className="mx-auto md:col-span-1 flex justify-center"
         >
           <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-violet-200 shadow-md hover:scale-105 transition-transform duration-300">
             <Image
