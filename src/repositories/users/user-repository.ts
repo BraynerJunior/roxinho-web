@@ -31,4 +31,5 @@ export interface UserRepository {
     totalPages: number;
     currentPage: number;
   }>;
+  deleteUserById(id: number): Promise<{ success: boolean }>;
 }

@@ -30,11 +30,23 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Trash2Icon, BanIcon, CheckIcon } from "lucide-react";
 import React, { JSX } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toggleUserAccess } from "@/actions/dashboard/toggle-user-access-action";
 import { IoIosArrowRoundDown, IoIosArrowRoundUp } from "react-icons/io";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { deleteUserByIdAction } from "@/actions/users/delete-user-by-id";
 
 interface DataTableHomeProps {
   data: UserModel[];
@@ -116,31 +128,11 @@ export const columns: ColumnDef<UserModel>[] = [
     accessorKey: "systemRole",
     header: "Acesso",
     cell: ({ row }) => {
-      const user = row.original;
       const currentRole = row.getValue("systemRole") as string;
-      
-      const isAdmin = currentRole === "admin";
-      const isPending = currentRole === "not_allowed";
-
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger disabled={isAdmin} asChild>
-            <div className="cursor-pointer group">
-              {getRoleLabel(currentRole) || "-"}
-            </div>
-          </DropdownMenuTrigger>
-
-          <DropdownMenuContent align="start" className="w-[180px]">
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={async () => {
-                await toggleUserAccess(user.id, currentRole);
-              }}
-            >
-              {isPending ? "Conceder acesso" : "Remover acesso"}
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="cursor-pointer group">
+          {getRoleLabel(currentRole) || "-"}
+        </div>
       );
     },
   },
@@ -150,6 +142,82 @@ export const columns: ColumnDef<UserModel>[] = [
     cell: ({ row }) => (
       <div className="capitalize">{row.getValue("role") || "-"}</div>
     ),
+  },
+  {
+    id: "actions",
+    header: "Ações",
+    cell: ({ row }) => {
+      const user = row.original;
+      const currentRole = row.getValue("systemRole") as string;
+
+      const isAdmin = currentRole === "admin";
+      const isPending = currentRole === "not_allowed";
+
+      if (!user.id) return;
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="ghost"
+              className="cursor-pointer text-center text-lg tracking-wide"
+            >
+              ...
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <DropdownMenuItem
+                  onSelect={(e) => e.preventDefault()}
+                  className="cursor-pointer flex flex-row items-center gap-2"
+                  disabled={isAdmin}
+                >
+                  Remover usuário <Trash2Icon className="text-red-500" />
+                </DropdownMenuItem>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Tem certeza disso?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Você está prestes a apagar esse usuário para sempre, quer
+                    continuar com isso?
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={async () => {
+                      await deleteUserByIdAction(user.id!);
+                    }}
+                    className="bg-red-600 text-white"
+                  >
+                    Deletar
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+            <DropdownMenuItem>
+              <DropdownMenuItem
+                className="cursor-pointer flex flex-row items-center gap-2 p-0"
+                onClick={async () => {
+                  await toggleUserAccess(user.id, currentRole);
+                }}
+              >
+                {isPending ? (
+                  <>
+                    Conceder acesso <CheckIcon className="text-purple-600" />
+                  </>
+                ) : (
+                  <>
+                    Remover acesso <BanIcon className="text-red-500"/>
+                  </>
+                )}
+              </DropdownMenuItem>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    },
   },
 ];
 

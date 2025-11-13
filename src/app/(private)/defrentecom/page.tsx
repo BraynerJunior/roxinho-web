@@ -19,9 +19,10 @@ export default async function DeFrenteComPage({
   // `searchParams` can be a thenable in some Next.js runtime scenarios.
   // Await it before accessing properties to avoid the runtime error:
   // "searchParams should be awaited before using its properties".
-  const params = (await (searchParams as unknown as Promise<
-    DeFrenteComPageProps["searchParams"]
-  >)) ?? searchParams;
+  const params =
+    (await (searchParams as unknown as Promise<
+      DeFrenteComPageProps["searchParams"]
+    >)) ?? searchParams;
 
   const page = Number(params.page ?? 1);
   const perPage = Number(params.perPage ?? 6);
@@ -49,9 +50,7 @@ export default async function DeFrenteComPage({
     );
   }
 
-  
   const [lastInterview, ...allInterviews] = interviews;
-  console.log({allInterviews})
   return (
     <div
       className={clsx(
@@ -91,7 +90,7 @@ export default async function DeFrenteComPage({
               "rounded-3xl",
               "bg-linear-to-tr from-violet-600 to-violet-300",
               "overflow-y-auto scrollbar-hide",
-              "max-h-60",
+              "max-h-100",
               "max-w-sm sm:min-w-md md:max-w-6xl"
             )}
             style={{ overscrollBehavior: "contain" }}
