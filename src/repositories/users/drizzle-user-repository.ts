@@ -6,8 +6,23 @@ import { profilesTable } from "@/db/drizzle/schema/profiles";
 import { jobRolesTable } from "@/db/drizzle/schema/job-roles";
 import { eq, ilike, sql } from "drizzle-orm";
 import bcrypt from "bcryptjs";
+import { findUserById } from "@/lib/user/queries";
 
 export class DrizzleUserRepository implements UserRepository {
+  async deleteUserById(id: number): Promise<{ success: boolean }> {
+    const user = await findUserById(id);
+
+    if (!user) throw new Error("Usuário não encotrado");
+
+    try {
+      await db.delete(usersTable).where(eq(usersTable.id, id));
+      return { success: true };
+    } catch {
+      console.error("[ERRO] não foi possível excluir user: ", id);
+      return { success: false };
+    }
+  }
+
   async findAll(
     page: number = 1,
     perPage: number = 10
@@ -189,6 +204,7 @@ export class DrizzleUserRepository implements UserRepository {
       await db.insert(profilesTable).values({
         userId: user.id,
         name: data.name,
+        jobRoleId: Number(data.jobRoleId),
       });
 
       return { success: true, user };

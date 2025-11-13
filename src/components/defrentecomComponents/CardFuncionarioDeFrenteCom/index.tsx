@@ -26,7 +26,7 @@ export default function CardFuncionarioDeFrenteCom({
       <Card
         className={cn(
           "relative flex items-center gap-4 overflow-hidden",
-          "bg-gradient-to-br from-violet-100/70 to-violet-50/30",
+          "bg-stone-100",
           "border border-violet-300/30 rounded-xl p-4 pl-20",
           "shadow-md hover:shadow-violet-400/20 transition-all duration-300"
         )}

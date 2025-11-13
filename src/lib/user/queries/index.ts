@@ -28,10 +28,16 @@ export const findAllUsers = cache((page: number, perpage: number) => {
   )(page, perpage);
 });
 
+export const deleteUserById = cache((id: number) => {
+  return userRepository.deleteUserById(id);
+});
+
 export const giveAccess = cache(async (userId: number) => {
   return userRepository.giveAccess(userId);
 });
 
-export const removeAccess = cache(async (userId: number) => {
-  return userRepository.removeAccess(userId);
-});
+export const removeAccess = cache(
+  async (userId: number): Promise<{ success: boolean }> => {
+    return userRepository.removeAccess(userId);
+  }
+);

@@ -22,12 +22,30 @@ import {
   PasswordInputInput,
 } from "@/components/ui/password-input";
 import { loginAction } from "@/actions";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+const jobIdMapping = [
+  { id: "1", value: "Diretor" },
+  { id: "2", value: "Gerente" },
+  { id: "3", value: "Team Leader" },
+  { id: "4", value: "SME - Operations" },
+  { id: "5", value: "Agente" },
+];
 
 export function RegisterForm() {
   const form = useForm<RegisterSchema>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
       name: "",
+      jobRoleId: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -93,6 +111,33 @@ export function RegisterForm() {
             )}
           />
 
+          <FormField
+            control={form.control}
+            name="jobRoleId"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-violet-950">Cargo</FormLabel>
+                <FormControl>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Selecione seu cargo" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Cargos</SelectLabel>
+                        {jobIdMapping.map((job) => (
+                          <SelectItem key={job.id} value={job.id}>
+                            {job.value}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
             name="password"
