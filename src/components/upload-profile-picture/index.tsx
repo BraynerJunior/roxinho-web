@@ -35,7 +35,7 @@ export default function UploadProfilePictureButton({userId}: UploadProfilePictur
                     method: "POST",
                     body: data,
                 });
-                const signedUrl = await response.json();
+                
 
                 setIsUploading(false)
                }}

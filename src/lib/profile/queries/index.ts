@@ -1,6 +1,6 @@
 import { profileRepository } from "@/repositories/profile";
 import { UpdateProfileInput } from "@/repositories/profile/profile-repository";
-import { revalidatePath, revalidateTag, unstable_cache } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 export async function findProfileByUserId(userId: number) {
       return profileRepository.findByUserId(userId);
