@@ -1,8 +1,8 @@
-import { Button } from "@/components/ui/button";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Camera, Calendar, Mail } from "lucide-react";
+import { Calendar, Mail } from "lucide-react";
 
 import { formatDateMonthYear } from "@/utils/format-datetime";
 import UploadProfilePictureButton from "../upload-profile-picture";
