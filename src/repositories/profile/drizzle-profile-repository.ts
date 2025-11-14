@@ -7,10 +7,22 @@ import { ProfileModel } from "@/models/profile/profile-model";
 export class DrizzleProfileRepository implements ProfileRepository {
   async findByUserId(userId: number) {
     const [profile] = await db
-      .select()
+      .select(
+        {
+          userId: profilesTable.userId,
+          jobRoleId: profilesTable.jobRoleId,
+          name: profilesTable.name,
+          bio: profilesTable.bio,
+          avatarUrl: profilesTable.avatarUrl,
+          createdAt: profilesTable.createdAt,
+          updatedAt: profilesTable.updatedAt
+        }
+      )
       .from(profilesTable)
       .where(eq(profilesTable.userId, userId))
       .limit(1);
+
+      console.log(profile)
 
     return profile ?? null;
   }
