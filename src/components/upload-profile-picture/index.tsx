@@ -30,13 +30,12 @@ export default function UploadProfilePictureButton({userId}: UploadProfilePictur
                    
                 }
 
-                const response = await fetch
+                await fetch
                 ("/api/upload", {
                     method: "POST",
                     body: data,
                 });
                 
-
                 setIsUploading(false)
                }}
 
