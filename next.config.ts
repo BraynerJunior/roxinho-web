@@ -15,6 +15,18 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+       {
+        protocol: 'https',
+        hostname: 'emerald-peculiar-whale-200.mypinata.cloud',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'mypinata.cloud',
+        port: '',
+        pathname: '/**',
+      },
     ],
   }
 };

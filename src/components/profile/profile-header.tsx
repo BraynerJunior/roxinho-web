@@ -5,8 +5,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Camera, Calendar, Mail } from "lucide-react";
 
 import { formatDateMonthYear } from "@/utils/format-datetime";
+import UploadProfilePictureButton from "../upload-profile-picture";
 
 type ProfileHeaderProps = {
+  userId: string;
   avatarUrl?: string | null | undefined;
   name?: string | null;
   systemRole?: string | null;
@@ -16,6 +18,7 @@ type ProfileHeaderProps = {
 };
 
 export default async function ProfileHeader({
+  userId,
   avatarUrl,
   createdAt,
   email,
@@ -52,13 +55,7 @@ export default async function ProfileHeader({
               />
               <AvatarFallback className="text-2xl"></AvatarFallback>
             </Avatar>
-            <Button
-              size="icon"
-              variant="outline"
-              className="absolute -right-2 -bottom-2 h-8 w-8 rounded-full"
-            >
-              <Camera />
-            </Button>
+            <UploadProfilePictureButton userId={userId} />
           </div>
           <div className="flex-1 space-y-2">
             <div className="flex flex-col gap-2 md:flex-row md:items-center">
